@@ -15,7 +15,7 @@ export default function Input1() {
   },[searchActive, searchValue]);
 
   return (
-    <div className="w-60 h-11 relative dark:bg-slate-800 bg-slate-50 dark:text-white text-slate-800 duration-300 flex justify-center rounded-md place-items-center overflow-hidden">
+    <div className="w-60 h-11 relative border-slate-300 dark:border-transparent dark:border-none border dark:bg-slate-800 bg-slate-50 dark:text-white text-slate-800 duration-300 flex justify-center rounded-md place-items-center overflow-hidden">
         
         <Icon.Search className={`absolute left-0 w-11 p-3 h-full duration-300 ${searchActive ? 'opacity-0 rotate-[50deg]' : 'opacity-100 rotate-[0deg]'}`}/>
         <Icon.XLg className={`absolute left-0 w-11 p-3 h-full duration-300 ${searchActive ? 'opacity-100 rotate-[0deg] cursor-pointer' : 'opacity-0 rotate-[-50deg]'}`} onClick={()=>setSearchValue('')}/>

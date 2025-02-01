@@ -38,7 +38,7 @@ export default function Select1() {
   return (
     <div
       ref={ref}
-      className={`relative w-60 h-11 bg-slate-700 dark:bg-slate-800 duration-300 flex place-items-center ${
+      className={`relative w-60 h-11 bg-slate-50 dark:bg-slate-800 duration-300 flex place-items-center border-slate-300 border ${
         selectActive ? "rounded-t-md" : "rounded-md"
       }`}
       onClick={() => (!selectActive ? setSelectActive(true) : "")}
@@ -47,7 +47,7 @@ export default function Select1() {
         {selectValue === "" ? "Selecione o valor..." : selectValue}
       </p>
       <Icon.ChevronDown
-        className={`absolute right-3 duration-300 ${
+        className={`absolute right-3 text-slate-800 dark:text-white duration-300 ${
           selectActive ? "rotate-180" : "rotate-0"
         } cursor-pointer`}
         onClick={() => setSelectActive((prev) => !prev)}
