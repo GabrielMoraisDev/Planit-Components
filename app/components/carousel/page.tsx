@@ -9,7 +9,10 @@ export default function CarouselExamples() {
     <div className="h-16"></div>
     <div className="w-[85%] m-auto float-end pr-16">
     <h1 className="text-center m-auto text-2xl py-10">Exemplos de Carousel</h1>
-        <Carousel1></Carousel1>
+    <div className="w-full h-full bg-slate-800 py-10 rounded-lg">
+      <Carousel1></Carousel1>
+    </div>
+        <div className="h-96"></div>
     </div>
     </>
   )
