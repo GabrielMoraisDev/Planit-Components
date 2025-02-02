@@ -38,7 +38,7 @@ export default function Select1() {
   return (
     <div
       ref={ref}
-      className={`relative w-60 h-11 bg-slate-50 dark:bg-slate-800 duration-300 flex place-items-center border-slate-300 border ${
+      className={`relative w-60 h-11 bg-slate-50 dark:bg-slate-800 duration-300 flex place-items-center border-slate-300 border dark:border-none ${
         selectActive ? "rounded-t-md" : "rounded-md"
       }`}
       onClick={() => (!selectActive ? setSelectActive(true) : "")}
