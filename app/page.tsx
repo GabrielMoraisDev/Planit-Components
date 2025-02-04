@@ -1,86 +1,73 @@
-"use client";
+'use client'
 
-import { useState, useEffect }  from "react";
-import * as Icon from "react-bootstrap-icons";
+import { useState, useEffect, useCallback }  from 'react';
+import * as Icon from 'react-bootstrap-icons';
 
-export default function Carousel2() {
-  const [currentImage, setcurrentImage] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  
-    const images = [
-      { name: "Item 1", img: "https://i.pinimg.com/originals/8a/ed/07/8aed075b2259a6f2bace5c4924ceb0a3.jpg" },
-      { name: "Item 2", img: "https://wallpapers.com/images/hd/4k-ultra-hd-landscape-wallpaper-f7f5eax71jomzq3h.jpg" },
-      { name: "Item 3", img: "https://wallpapers.com/images/hd/4k-beach-background-f9un4jfonc05kg9r.jpg" },
-    ];
+export default function Carousel1() {
+  const [currentImage, setCurrentImage] = useState<number>(0);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  const prevSlide = () => {
-    setcurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  const images: string[] = [
+    'https://i.pinimg.com/originals/8a/ed/07/8aed075b2259a6f2bace5c4924ceb0a3.jpg', 
+    'https://wallpapers.com/images/hd/4k-ultra-hd-landscape-wallpaper-f7f5eax71jomzq3h.jpg', 
+    'https://wallpapers.com/images/hd/4k-beach-background-f9un4jfonc05kg9r.jpg'
+  ];
 
-  const nextSlide = () => {
-    setcurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+  const nextImage = useCallback(() => {
+    setCurrentImage((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const prevImage = useCallback(() => {
+    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
 
   useEffect(() => {
     if (!isHovered) {
-      const interval = setInterval(() => {
-        nextSlide();
-      }, 5000);
+      const interval = setInterval(nextImage, 5000);
       return () => clearInterval(interval);
     }
-  }, [isHovered, currentImage]);
+  }, [isHovered, nextImage]);
 
   return (
-    <div
-      className="relative w-full h-[30rem] bg-red-400 mx-auto overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <>
       <div
-        className="h-full flex transition-transform duration-300"
-        style={{ transform: `translateX(-${currentImage * 100}%)` }}
+        className="w-full h-[30rem] flex m-auto justify-center rounded-t-lg overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        {images.map((item, index) => (
+        <div className="w-full h-full bg-slate-700 dark:bg-slate-800 relative duration-300 flex justify-center overflow-hidden">
+          <div className="w-32 h-full bg-gradient-to-r from-slate-950 to-transparent absolute left-0 z-10 opacity-75"></div>
           <div
-            key={index}
-            className="min-w-full h-full flex items-center justify-center bg-cover bg-center text-white text-4xl font-bold"
-            style={{ backgroundImage: `url(${item.img})` }}
+            className="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
+            onClick={prevImage}
           >
-            <div className="w-full h-full bg-black/30 flex justify-center place-items-center">
-              {item.name}
-            </div>
+            <Icon.ChevronLeft />
           </div>
-        ))}
-      </div>
-
-      <div
-        className="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
-        onClick={prevSlide}
-      >
-        <Icon.ChevronLeft />
-      </div>
-
-      <div
-        className="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
-        onClick={nextSlide}
-      >
-        <Icon.ChevronRight />
-      </div>
-      <div className="w-full h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center">
-      {(() => {
-        const dots = [];
-        for (let i = 0; i < images.length; i++) {
-          dots.push(
+          {images.map((bg, index) => (
             <div
-              key={i}
-              className={`h-full w-5 duration-300 rounded-full ${i === currentImage ? 'bg-white' : 'bg-slate-600'}`}
+              key={index}
+              className={`h-full w-full absolute ${index === currentImage ? 'opacity-100' : 'opacity-0'} duration-300 bg-cover bg-center`}
+              style={{ backgroundImage: `url(${bg})` }}
             ></div>
-          );
-        }
-        return dots;
-      })()}
-    </div>
+          ))}
+          <div className="w-32 h-full bg-gradient-to-l from-slate-950 to-transparent absolute right-0 z-10 opacity-75"></div>
+          <div
+            className="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
+            onClick={nextImage}
+          >
+            <Icon.ChevronRight />
+          </div>
 
-    </div>
+          <div className="w-full h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center z-30">
+            {images.map((_, i) => (
+              <div
+                key={i}
+                className={`h-full w-5 duration-300 rounded-full ${i === currentImage ? 'bg-white' : 'bg-slate-600'}`}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
