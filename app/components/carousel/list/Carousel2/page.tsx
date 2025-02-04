@@ -1,12 +1,40 @@
 "use client";
 
-import { useState, useEffect }  from "react";
+import { useState, useEffect } from "react";
+import { useDataContext } from "@/app/_context/data";
+import {codeStringNext} from "../../list/Carousel2/codeNext";
+import {codeStringJs} from "../../list/Carousel2/codeJs";
+import {codeStringReact} from "../../list/Carousel2/codeReact";
 import * as Icon from "react-bootstrap-icons";
 
 export default function Carousel2() {
   const [currentImage, setcurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  
+    const { lang, setCarousel } = useDataContext();
+    
+      useEffect(()=> {
+        if(lang === 'js'){
+          setCarousel(prevState => 
+            prevState.map(item => 
+              item.carousel2 ? { carousel2: { code: codeStringJs } } : item
+            )
+          );
+        }else if(lang === 'react'){
+          setCarousel(prevState => 
+            prevState.map(item => 
+              item.carousel2 ? { carousel2: { code: codeStringReact } } : item
+            )
+          );
+        }else{
+          setCarousel(prevState => 
+            prevState.map(item => 
+              item.carousel2 ? { carousel2: { code: codeStringNext } } : item
+            )
+          );
+        }
+    }, [lang, setCarousel])
+
+    
     const images = [
       { name: "Item 1", img: "https://i.pinimg.com/originals/8a/ed/07/8aed075b2259a6f2bace5c4924ceb0a3.jpg" },
       { name: "Item 2", img: "https://wallpapers.com/images/hd/4k-ultra-hd-landscape-wallpaper-f7f5eax71jomzq3h.jpg" },
@@ -32,7 +60,7 @@ export default function Carousel2() {
 
   return (
     <div
-      className="relative w-full h-[30rem] bg-red-400 mx-auto overflow-hidden"
+      className="relative w-full h-[30rem] mx-auto overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

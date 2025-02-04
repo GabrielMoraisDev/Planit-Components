@@ -1,0 +1,1 @@
+export const codeStringReact = `eu sou react sô`

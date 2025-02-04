@@ -1,6 +1,6 @@
 export const cleanConsole = (text: string) => {
     return text
-      .replace(/("[^"]*"|'[^']*'|`[^`]*`)/g, '<span class="text-blue-300">$1</span>')
+      // .replace(/("[^"]*"|'[^']*'|`[^`]*`)/g, '<span class="text-blue-300">$1</span>')
       .replace(/&lt;\//g, '<span class="text-blue-500">&lt;/</span>')
       .replace(/&lt;/g, '<span class="text-blue-500">&lt;</span>')
       .replace(/&gt;/g, '<span class="text-blue-500">&gt;</span>')
@@ -36,7 +36,8 @@ export const cleanConsole = (text: string) => {
       .replace(/useEffect/g, '<span class="text-sky-500">useEffect</span>')
       .replace(/useCallback/g, '<span class="text-sky-500">useCallback</span>')
       .replace(/useMemo/g, '<span class="text-sky-500">useMemo</span>')
-      .replace(/const/g, '<span class="text-pink-500">const</span>')
+      .replace(/const /g, '<span class="text-pink-500">const </span>')
+      .replace(/let /g, '<span class="text-pink-500">let </span>')
       .replace(/react/g, '<span class="text-emerald-500">react</span>')
       .replace(/-bootstrap-icons/g, '<span class="text-emerald-500">-bootstrap-icons</span>')
       .replace(/\[/g, '<span class="text-emerald-500">[</span>')
@@ -45,6 +46,7 @@ export const cleanConsole = (text: string) => {
       .replace(/export /g, '<span class="text-yellow-500">export </span>')
       .replace(/default /g, '<span class="text-orange-300">default </span>')
       .replace(/function /g, '<span class="text-purple-300">function </span>')
-      .replace(/.length/g, '<span class="text-yellow-500">.length</span>');
+      .replace(/.length/g, '<span class="text-yellow-500">.length</span>')
+      .replace(/.push/g, '<span class="text-yellow-500">.push</span>');
   };
   console.log(cleanConsole)
