@@ -26,7 +26,7 @@ export default function Copy({ codeString }: propsCode) {
     function copied() {
         if (isToastActive) return;
         
-        setIsToastActive(true);
+        setIsToastActive(true)
         toast.info(`Componente ${lang} copiado!`, {
             position: "bottom-right",
             autoClose: 1500,
@@ -53,7 +53,7 @@ export default function Copy({ codeString }: propsCode) {
                 </div>
                 <div 
                     className={`w-20 h-[60%] duration-300 rounded-full cursor-pointer absolute -translate-y-1/2 top-1/2 right-5 flex justify-center place-items-center ${isToastActive ? 'bg-sky-600 cursor-default' : 'bg-slate-600 hover:bg-slate-500'}`}
-                    onClick={copied}
+                    onClick={()=>!isToastActive && copied()}
                 >
                     <Icon.Clipboard />
                 </div>
