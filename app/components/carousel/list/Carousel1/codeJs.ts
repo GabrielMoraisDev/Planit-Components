@@ -11,12 +11,12 @@ export const codeStringJs = `&lt;!DOCTYPE html&gt;
     &lt;div id="carousel" class="w-full h-[30rem] flex m-auto justify-center rounded-t-lg overflow-hidden relative"&gt;
         &lt;div class="w-full h-full bg-slate-700 dark:bg-slate-800 relative duration-300 flex justify-center overflow-hidden"&gt;
             &lt;div class="w-32 h-full bg-gradient-to-r from-slate-950 to-transparent absolute left-0 z-10 opacity-75"&gt;&lt;/div&gt;
-            &lt;div id="prevImage" class="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center items-center"&gt;
+            &lt;div id="prevImage" class="w-12 h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"&gt;
                 &lt;i class="bi-chevron-left text-2xl"&gt;&lt;/i&gt;
             &lt;/div&gt;
             &lt;div id="slidesContainer" class="w-full h-full absolute"&gt;&lt;/div&gt;
             &lt;div class="w-32 h-full bg-gradient-to-l from-slate-950 to-transparent absolute right-0 z-10 opacity-75"&gt;&lt;/div&gt;
-            &lt;div id="nextImage" class="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center items-center"&gt;
+            &lt;div id="nextImage" class="w-12 h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"&gt;
                 &lt;i class="bi-chevron-right text-2xl"&gt;&lt;/i&gt;
             &lt;/div&gt;
             &lt;div id="dotsContainer" class="w-full h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center z-30"&gt;&lt;/div&gt;
@@ -51,7 +51,7 @@ export const codeStringJs = `&lt;!DOCTYPE html&gt;
                     slidesContainer.appendChild(slide);
 
                     const dot = document.createElement("div");
-                    dot.className = \`h-full w-5 duration-300 rounded-full $\{index === currentImage ? "bg-white" : "bg-slate-600"}\`;
+                    dot.className = \`h-full w-5 duration-300 rounded-full $\{index === currentImage ? "dark:bg-white bg-slate-100" : "dark:bg-slate-600 bg-white/40"}\`;
                     dot.addEventListener("click", () =&gt; {
                         currentImage = index;
                         updateSlide();
