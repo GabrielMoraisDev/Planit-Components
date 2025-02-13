@@ -1,19 +1,12 @@
-export const codeStringNext = `
-"use client";
-
+export const codeStringReact = `
 import { useState, useEffect } from "react";
 import * as Icon from "react-bootstrap-icons";
 
-interface Image {
-  name: string;
-  img: string;
-}
-
 export default function Carousel2() {
-  const [currentImage, setCurrentImage] = useState&lt;number&gt;(0);
-  const [isHovered, setIsHovered] = useState&lt;boolean&gt;(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const images: Image[] = [
+  const images = [
     {
       name: "Item 1",
       img: "https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380",
@@ -40,7 +33,7 @@ export default function Carousel2() {
     if (!isHovered) {
       const interval = setInterval(() =&gt; {
         nextSlide();
-      }, 3000);
+      }, 5000);
       return () =&gt; clearInterval(interval);
     }
   }, [isHovered, currentImage]);
@@ -53,7 +46,7 @@ export default function Carousel2() {
     &gt;
       &lt;div
         className="h-full flex transition-transform duration-300"
-        style={{ transform: \`translateX(-$\{currentImage * 100}%)\`}}
+        style={{ transform: \`translateX(-$\{currentImage * 100}%)\` }}
       &gt;
         {images.map((item, index) =&gt; (
           &lt;div

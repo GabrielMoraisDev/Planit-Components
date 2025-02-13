@@ -26,9 +26,9 @@ export const codeStringJs = `&lt;!DOCTYPE html&gt;
     &lt;script&gt;
         document.addEventListener("DOMContentLoaded", () =&gt; {
             const images = [
-                "https://i.pinimg.com/originals/8a/ed/07/8aed075b2259a6f2bace5c4924ceb0a3.jpg",
-                "https://wallpapers.com/images/hd/4k-ultra-hd-landscape-wallpaper-f7f5eax71jomzq3h.jpg",
-                "https://wallpapers.com/images/hd/4k-beach-background-f9un4jfonc05kg9r.jpg"
+                "https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380",
+                "https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380",
+                "https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380"
             ];
 
             let currentImage = 0;
@@ -87,7 +87,7 @@ export const codeStringJs = `&lt;!DOCTYPE html&gt;
             prevImageBtn.addEventListener("click", prevImage);
             nextImageBtn.addEventListener("click", nextImage);
 
-            let autoSlide = setInterval(nextImage, 5000);
+            let autoSlide = setInterval(nextImage, 3000);
 
             carousel.addEventListener("mouseenter", () =&gt; {
                 isHovered = true;
@@ -96,7 +96,7 @@ export const codeStringJs = `&lt;!DOCTYPE html&gt;
 
             carousel.addEventListener("mouseleave", () =&gt; {
                 isHovered = false;
-                autoSlide = setInterval(nextImage, 5000);
+                autoSlide = setInterval(nextImage, 3000);
             });
 
             renderSlides();

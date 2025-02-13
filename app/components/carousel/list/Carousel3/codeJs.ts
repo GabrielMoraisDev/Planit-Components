@@ -83,7 +83,7 @@ export const codeStringJs = `
             prevSlideBtn.addEventListener("click", prevSlide);
             nextSlideBtn.addEventListener("click", nextSlide);
 
-            let autoSlide = setInterval(nextSlide, 3000);
+            let autoSlide = setInterval(nextSlide, 5000);
 
             carousel.addEventListener("mouseenter", () =&gt; {
                 isHovered = true;
@@ -92,7 +92,7 @@ export const codeStringJs = `
 
             carousel.addEventListener("mouseleave", () =&gt; {
                 isHovered = false;
-                autoSlide = setInterval(nextSlide, 3000);
+                autoSlide = setInterval(nextSlide, 5000);
             });
 
             renderSlides();

@@ -14,8 +14,9 @@ interface Data {
 }
 
 const initialCarousel: CarouselItem[] = [
-  { carousel1: { code: "skjdkajsdkasjdkasdj" } },
-  { carousel2: { code: "coder kk" } },
+  { carousel1: { code: "" } },
+  { carousel2: { code: "" } },
+  { carousel3: { code: "" } },
 ];
 
 const DataContext = createContext<Data | undefined>(undefined);

@@ -40,7 +40,7 @@ export default function Carousel2() {
     if (!isHovered) {
       const interval = setInterval(() =&gt; {
         nextSlide();
-      }, 3000);
+      }, 5000);
       return () =&gt; clearInterval(interval);
     }
   }, [isHovered, currentImage]);
