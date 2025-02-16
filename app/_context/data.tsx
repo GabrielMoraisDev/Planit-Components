@@ -11,6 +11,8 @@ interface Data {
   carousel: CarouselItem[];
   setLang: React.Dispatch<React.SetStateAction<string>>;
   setCarousel: React.Dispatch<React.SetStateAction<CarouselItem[]>>;
+  menuOpen: boolean;
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const initialCarousel: CarouselItem[] = [

@@ -1,34 +1,18 @@
-import { useEffect, useState } from "react";
+'use client'
+import { useEffect, useState, useMemo } from "react";
 import * as Icon from 'react-bootstrap-icons'
-
-interface CardCarouselProps{
-  img: string,
-  title: string,
-  description: string
-}
-
-export function CardCarousel({img, title, description}:CardCarouselProps){
-  return(
-    <div className="min-w-[11rem] sm:min-w-[10rem] md:min-w-[10rem] lg:min-w-[13rem] 2xl:min-w-[15rem] h-60 bg-slate-300 dark:bg-slate-800 p-3 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 duration-300 cursor-pointer">
-      <div className="m-auto w-full h-32 bg-center bg-cover rounded-md mb-3" style={{backgroundImage: `url('${img}')`}}></div>
-      <h1 className="text-xl text-black dark:text-white">{title}</h1>
-      <p className="truncate text-slate-700 dark:text-slate-400">{description}</p>
-      <p className="text-sm text-slate-400 dark:text-slate-600">See more</p>
-    </div>
-  )
-}
 
 export default function CarouselCards() {
   const [qntClass, setQntClass] = useState('w-[125%]')
   const [isHovered, setIsHovered] = useState(false)
 
-  const items = [
-    {id:1, title:'First Card!', description:"This is the first card!", img:'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380'},
-    {id:2, title:'Second Card!', description:"This is the second!", img:'https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380'},
-    {id:3, title:'Third Card!', description:"I'm the third!", img:'https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380'},
-    {id:4, title:'Fourth Card!', description:"fouth", img:'https://img.freepik.com/vetores-gratis/fundo-de-montanhas-em-aquarela_23-2149238186.jpg?t=st=1739410913~exp=1739414513~hmac=db6c0c016287d8b1e24cca28a5acccb61a4ce212d87cc0127c46b07c4735bb5f&w=1380'},
-    {id:5, title:'Fifth Card!', description:"Last in List :)", img:'https://img.freepik.com/vetores-gratis/fundo-de-paisagem-de-verao-para-zoom_52683-42162.jpg?t=st=1739411112~exp=1739414712~hmac=ab98c321de7cc4e633095f87b49eb7886f6e2f3e0aa1677070c9e4b0034c6036&w=1380'},
-  ]
+  const items = useMemo(() => [
+    { id: 1, title: 'First Card!', description: "This is the first card!", img: 'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380' },
+    { id: 2, title: 'Second Card!', description: "This is the second!", img: 'https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380' },
+    { id: 3, title: 'Third Card!', description: "I'm the third!", img: 'https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380' },
+    { id: 4, title: 'Fourth Card!', description: "fouth", img: 'https://img.freepik.com/vetores-gratis/fundo-de-montanhas-em-aquarela_23-2149238186.jpg?t=st=1739410913~exp=1739414513~hmac=db6c0c016287d8b1e24cca28a5acccb61a4ce212d87cc0127c46b07c4735bb5f&w=1380' },
+    { id: 5, title: 'Fifth Card!', description: "Last in List :)", img: 'https://img.freepik.com/vetores-gratis/fundo-de-paisagem-de-verao-para-zoom_52683-42162.jpg?t=st=1739411112~exp=1739414712~hmac=ab98c321de7cc4e633095f87b49eb7886f6e2f3e0aa1677070c9e4b0034c6036&w=1380' },
+  ], []);
 
   useEffect(()=>{
     switch (items.length) {
@@ -91,7 +75,7 @@ export default function CarouselCards() {
       }, 3000);
       return () => clearInterval(interval);
     }
-  }, [isHovered, firstItem, rightClick]);
+  }, [isHovered, firstItem]);
 
   return (
     <div className="w-full relative bg-white rounded-t-lg dark:bg-slate-900"
@@ -108,7 +92,12 @@ export default function CarouselCards() {
             } 
             ${firstItem >= item.id ? 'w-0' : 'w-full'} 
             justify-center place-items-center flex`}>
-              <CardCarousel img={item.img} title={item.title} description={item.description}/>
+              <div className="min-w-[11rem] sm:min-w-[10rem] md:min-w-[10rem] lg:min-w-[13rem] 2xl:min-w-[15rem] h-60 bg-slate-300 dark:bg-slate-800 p-3 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 duration-300 cursor-pointer">
+                <div className="m-auto w-full h-32 bg-center bg-cover rounded-md mb-3" style={{backgroundImage: `url('${item.img}')`}}></div>
+                <h1 className="text-xl text-black dark:text-white">{item.title}</h1>
+                <p className="truncate text-slate-700 dark:text-slate-400">{item.description}</p>
+                <p className="text-sm text-slate-400 dark:text-slate-600">See more</p>
+              </div>
           </div>
         ))}
         {items.map((item)=>( 
@@ -120,7 +109,12 @@ export default function CarouselCards() {
             } 
             ${firstItem < item.id ? 'w-0' : 'w-full'} 
             justify-center place-items-center flex`}>
-              <CardCarousel img={item.img} title={item.title} description={item.description}/>
+              <div className="min-w-[11rem] sm:min-w-[10rem] md:min-w-[10rem] lg:min-w-[13rem] 2xl:min-w-[15rem] h-60 bg-slate-300 dark:bg-slate-800 p-3 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 duration-300 cursor-pointer">
+                <div className="m-auto w-full h-32 bg-center bg-cover rounded-md mb-3" style={{backgroundImage: `url('${item.img}')`}}></div>
+                <h1 className="text-xl text-black dark:text-white">{item.title}</h1>
+                <p className="truncate text-slate-700 dark:text-slate-400">{item.description}</p>
+                <p className="text-sm text-slate-400 dark:text-slate-600">See more</p>
+              </div>
           </div>
         ))}
         </div>
