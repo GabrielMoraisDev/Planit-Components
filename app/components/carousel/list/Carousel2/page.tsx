@@ -60,7 +60,7 @@ export default function Carousel2() {
 
   return (
     <div
-      className="relative w-full h-[30rem] mx-auto overflow-hidden"
+      className="relative w-full h-[15rem] lg:h-[30rem] mx-auto overflow-hidden rounded-t-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -74,7 +74,7 @@ export default function Carousel2() {
             className="min-w-full h-full flex items-center justify-center bg-cover bg-center text-white text-4xl font-bold"
             style={{ backgroundImage: `url(${item.img})` }}
           >
-            <div className="w-full h-full bg-black/30 flex justify-center place-items-center">
+            <div className="w-full h-full bg-black/30 flex justify-center place-items-center text-lg lg:text-xl">
               {item.name}
             </div>
           </div>
@@ -82,26 +82,26 @@ export default function Carousel2() {
       </div>
 
       <div
-        className="w-12 h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
+        className="w-10 h-10 lg:w-12 lg:h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-2 lg:left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
         onClick={prevSlide}
       >
         <Icon.ChevronLeft />
       </div>
 
       <div
-        className="w-12 h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
+        className="w-10 h-10 lg:w-12 lg:h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-2 lg:right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
         onClick={nextSlide}
       >
         <Icon.ChevronRight />
       </div>
-      <div className="w-full h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center">
+      <div className="w-full h-3 lg:h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center">
       {(() => {
         const dots = [];
         for (let i = 0; i < images.length; i++) {
           dots.push(
             <div
               key={i}
-              className={`h-full w-5 duration-300 rounded-full ${i === currentImage ? 'dark:bg-white bg-slate-100' : 'dark:bg-slate-600 bg-white/40'}`}
+              className={`h-full w-3 lg:w-5 duration-300 rounded-full ${i === currentImage ? 'dark:bg-white bg-slate-100' : 'dark:bg-slate-600 bg-white/40'}`}
             ></div>
           );
         }

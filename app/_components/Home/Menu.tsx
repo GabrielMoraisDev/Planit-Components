@@ -1,15 +1,22 @@
 'use client'
 import Link from "next/link";
 import * as Icon from 'react-bootstrap-icons'
+import { useDataContext } from "../../_context/data";
 import { useState } from "react";
 export default function Menu() {
     const[componentsSection, setComponentsSection] = useState(false)
     const[examplesSection, setExamplesSection] = useState(false)
+    const[activeMenu, setActiveMenu] = useState(true)
+    const { setMenuOpen } = useDataContext();
 
   return (
-    <main className="fixed top-0 left-0 w-60 h-full bg-slate-900 z-50 pt-24 px-10">
+    <>
+    <div className="fixed w-10 h-10 z-50 left-5 top-3 justify-center place-items-center flex" onClick={()=>{setActiveMenu((prev)=>!prev);setMenuOpen(!activeMenu)}}>
+        {!activeMenu?<Icon.List className="w-7 h-7 duration-300" width={35}/>:<Icon.X className="w-7 h-7 duration-300" width={35}/>}
+    </div>
+    <main className={`fixed top-0 left-0 ${activeMenu ?'w-60 px-10':'w-0 px-0'} duration-300 h-full bg-slate-900 z-40 pt-24 overflow-hidden`}>
         <Link href='/'>
-            <div className="cursor-pointer h-8 flex place-items-center hover:pl-2 hover:text-white text-slate-400 duration-300">
+            <div className="text-nowrap cursor-pointer h-8 flex place-items-center hover:pl-2 hover:text-white text-slate-400 duration-300">
                 Get Started <Icon.Fire className="ml-1 mb-1"/>
             </div>
         </Link>
@@ -41,5 +48,6 @@ export default function Menu() {
         </div>
 
     </main>
+    </>
   );
 }

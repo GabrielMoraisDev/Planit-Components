@@ -59,13 +59,12 @@ export default function Carousel1() {
   return (
     <>
     <div
-      className="w-full h-[30rem] flex m-auto justify-center rounded-t-lg overflow-hidden" 
+      className="w-full h-[15rem] lg:h-[30rem] flex m-auto justify-center rounded-t-lg overflow-hidden" 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="w-full h-full bg-slate-700 dark:bg-slate-800 relative duration-300 flex justify-center overflow-hidden">
-        <div className="w-32 h-full bg-gradient-to-r from-slate-950 to-transparent absolute left-0 z-10 opacity-75"></div>
-        <div className="w-12 h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
+        <div className="w-10 h-10 lg:w-12 lg:h-12 text-slate-800 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border border-slate-500 rounded-full absolute -translate-y-1/2 top-1/2 left-2 lg:left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
           onClick={prevImage}
         >
           <Icon.ChevronLeft/>
@@ -77,21 +76,20 @@ export default function Carousel1() {
             style={{ backgroundImage: `url(${bg})` }}
           ></div>
         ))}
-        <div className="w-32 h-full bg-gradient-to-l from-slate-950 to-transparent absolute right-0 z-10 opacity-75"></div>
-        <div className="w-12 h-12 text-slate-100 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
+        <div className="w-10 h-10 lg:w-12 lg:h-12 text-slate-800 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border border-slate-500 rounded-full absolute -translate-y-1/2 top-1/2 right-2 lg:right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
           onClick={nextImage}
         >
           <Icon.ChevronRight />
         </div>
 
-        <div className="w-full h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center z-30">
+        <div className="w-full h-3 lg:h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center z-30">
         {(() => {
           const dots = [];
           for (let i = 0; i < images.length; i++) {
             dots.push(
               <div
                 key={i}
-                className={`h-full w-5 duration-300 rounded-full ${i === currentImage ? 'dark:bg-white bg-slate-100' : 'dark:bg-slate-600 bg-white/40'}`}
+                className={`border-slate-500 border h-full w-3 lg:w-5 duration-300 rounded-full ${i === currentImage ? 'dark:bg-white bg-slate-100' : 'dark:bg-slate-600 bg-white/40'}`}
               ></div>
             );
           }

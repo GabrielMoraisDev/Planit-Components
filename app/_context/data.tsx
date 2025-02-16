@@ -23,10 +23,11 @@ const DataContext = createContext<Data | undefined>(undefined);
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<string>('next');
+  const [menuOpen, setMenuOpen] = useState<boolean>(true);
   const [carousel, setCarousel] = useState<CarouselItem[]>(initialCarousel);
 
   return (
-    <DataContext.Provider value={{ lang, setLang, carousel, setCarousel }}>
+    <DataContext.Provider value={{ lang, setLang, carousel, setCarousel, menuOpen, setMenuOpen }}>
       {children}
     </DataContext.Provider>
   );
