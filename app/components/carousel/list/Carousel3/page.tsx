@@ -56,8 +56,8 @@ const Carousel3D = () => {
                 className="absolute w-full h-full"
                 style={{ transform: `rotateY(${itemRotation}deg) translateZ(${radius}px)` }}
               >
-                <div className='bg-white dark:bg-slate-800 relative w-[15rem] lg:w-[30rem] h-full mx-auto overflow-hidden rounded-lg transform-style-preserve-3d flex justify-center duration-1000'>
-                <div className={`${index === currentItem ? 'opacity-100' : (index === currentItem + 1 || index === currentItem - 1) ? 'opacity-70' : (index === currentItem - (items.length - 1) || index === currentItem + (items.length - 1)) ? 'opacity-70': 'opacity-30'} duration-1000 w-[30rem] h-full`}>
+                <div className='bg-white dark:bg-slate-800 relative w-[15rem] lg:w-[30rem] h-full mx-auto overflow-hidden rounded-lg transform-style-preserve-3d flex justify-center duration-500'>
+                <div className={`${index === currentItem ? 'opacity-100' : (index === currentItem + 1 || index === currentItem - 1) ? 'opacity-70' : (index === currentItem - (items.length - 1) || index === currentItem + (items.length - 1)) ? 'opacity-70': 'opacity-30'} w-[30rem] h-full duration-300`}>
                   <Image
                     width={600}
                     height={600}
