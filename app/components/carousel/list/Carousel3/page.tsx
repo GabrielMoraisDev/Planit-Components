@@ -18,7 +18,7 @@ const Carousel3D = () => {
 
   const numberOfItems = items.length;
   const theta = 360 / numberOfItems;
-  const radius = 400;
+  const radius = 450;
 
   const rotate = (direction: number) => {
     setRotation(prev => prev + direction * theta);
@@ -37,7 +37,7 @@ const Carousel3D = () => {
   return (
 
     <div 
-      className="relative w-full mx-auto h-[14rem] lg:h-[28rem] overflow-hidden perspective bg-white dark:bg-slate-900 py-8 rounded-t-lg"
+      className="relative w-full mx-auto h-[14rem] lg:h-[28rem] overflow-hidden perspective bg-white dark:bg-slate-900 py-8 rounded-t-lg duration-1000"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -45,8 +45,8 @@ const Carousel3D = () => {
       <div className="absolute top-0 right-0 h-full w-72 lg:bg-gradient-to-r from-transparent to-slate-400 dark:to-black/90 z-10"></div>
       <div className="relative w-full h-full">
         <div
-          className="m-auto w-full h-full preserve-3d"
-          style={{ transform: `translateZ(-${radius}px) rotateY(${rotation}deg)`, transition: 'transform 1s ease-in-out' }}
+          className="m-auto w-full h-full preserve-3d duration-1000 delay-150 "
+          style={{ transform: `translateZ(-${radius}px) rotateY(${rotation}deg)`}}
         >
           {items.map((item, index) => {
             const itemRotation = theta * index;
@@ -56,8 +56,10 @@ const Carousel3D = () => {
                 className="absolute w-full h-full"
                 style={{ transform: `rotateY(${itemRotation}deg) translateZ(${radius}px)` }}
               >
-                <div className='bg-white dark:bg-slate-800 relative w-[15rem] lg:w-[30rem] h-full mx-auto overflow-hidden rounded-lg transform-style-preserve-3d flex justify-center duration-500'>
-                <div className={`${index === currentItem ? 'opacity-100' : (index === currentItem + 1 || index === currentItem - 1) ? 'opacity-70' : (index === currentItem - (items.length - 1) || index === currentItem + (items.length - 1)) ? 'opacity-70': 'opacity-30'} w-[30rem] h-full duration-300`}>
+                <div className='bg-white dark:bg-slate-800 relative w-[15rem] lg:w-[30rem] h-full mx-auto overflow-hidden rounded-lg transform-style-preserve-3d flex justify-center'>
+                <div className=
+                  {`w-[30rem] h-full duration-300 ${index === currentItem ? 'opacity-100' : (index === currentItem + 1 || index === currentItem - 1) 
+                    ? 'opacity-70' : (index === currentItem - (items.length - 1) || index === currentItem + (items.length - 1)) ? 'opacity-70': 'opacity-20'}`}>
                   <Image
                     width={600}
                     height={600}
@@ -67,7 +69,7 @@ const Carousel3D = () => {
                     style={{ objectPosition: 'center' }}
                   />
 
-                    <div className="absolute inset-0 flex flex-col items-center justify-end p-4">
+                    <div className="absolute inset-0 flex flex-col items-center justify-end p-4 duration-1000">
                       <h2 className="text-xl font-bold mb-1 text-white">{item.title}</h2>
                       <p className="text-sm text-gray-200">{item.description}</p>
                     </div>
