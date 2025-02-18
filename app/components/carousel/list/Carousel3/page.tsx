@@ -1,5 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react';
+import { useDataContext } from "@/app/_context/data";
+import {codeStringNext} from "../../list/Carousel3/codeNext";
+import {codeStringJs} from "../../list/Carousel3/codeJs";
+import {codeStringReact} from "../../list/Carousel3/codeReact";
 import Image from 'next/image';
 import * as Icon from 'react-bootstrap-icons';
 
@@ -7,6 +11,29 @@ const Carousel3D = () => {
   const [rotation, setRotation] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [currentItem, setCurrentItem] = useState(0);
+  const { lang, setCarousel } = useDataContext();
+    
+      useEffect(()=> {
+        if(lang === 'js'){
+          setCarousel(prevState => 
+            prevState.map(item => 
+              item.carousel3 ? { carousel3: { code: codeStringJs } } : item
+            )
+          );
+        }else if(lang === 'react'){
+          setCarousel(prevState => 
+            prevState.map(item => 
+              item.carousel3 ? { carousel3: { code: codeStringReact } } : item
+            )
+          );
+        }else{
+          setCarousel(prevState => 
+            prevState.map(item => 
+              item.carousel3 ? { carousel3: { code: codeStringNext } } : item
+            )
+          );
+        }
+    }, [lang, setCarousel])
 
   const items = [
     { title: 'Imagem 1', description: 'Descrição da imagem 1', imageUrl: 'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380' },
