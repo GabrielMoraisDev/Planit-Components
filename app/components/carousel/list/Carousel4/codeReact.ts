@@ -1,5 +1,4 @@
 export const codeStringReact = `
-'use client'
 import { useEffect, useState, useMemo } from "react";
 import * as Icon from 'react-bootstrap-icons'
 

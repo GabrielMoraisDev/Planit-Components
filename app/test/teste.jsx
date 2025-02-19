@@ -1,37 +1,10 @@
-'use client'
+
 import { useEffect, useState, useMemo } from "react";
 import * as Icon from 'react-bootstrap-icons'
-import { useDataContext } from "@/app/_context/data";
-import {codeStringNext} from "../../list/Carousel4/codeNext";
-import {codeStringJs} from "../../list/Carousel4/codeJs";
-import {codeStringReact} from "../../list/Carousel4/codeReact";
 
-export default function Carousel4() {
-  const [qntClass, setQntClass] = useState<string>('w-[125%]')
-  const [isHovered, setIsHovered] = useState<boolean>(false)
-  const { lang, setCarousel } = useDataContext();
-    
-  useEffect(()=> {
-    if(lang === 'js'){
-      setCarousel(prevState => 
-        prevState.map(item => 
-          item.carousel4 ? { carousel4: { code: codeStringJs } } : item
-        )
-      );
-    }else if(lang === 'react'){
-      setCarousel(prevState => 
-        prevState.map(item => 
-          item.carousel4 ? { carousel4: { code: codeStringReact } } : item
-        )
-      );
-    }else{
-      setCarousel(prevState => 
-        prevState.map(item => 
-          item.carousel4 ? { carousel4: { code: codeStringNext } } : item
-        )
-      );
-    }
-}, [lang, setCarousel])
+export default function CarouselCards() {
+  const [qntClass, setQntClass] = useState('w-[125%]')
+  const [isHovered, setIsHovered] = useState(false)
 
   const items = useMemo(() => [
     { id: 1, title: 'First Card!', description: "This is the first card!", img: 'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380' },
@@ -70,7 +43,7 @@ export default function Carousel4() {
   const [toRight, setToRight] = useState(false)
   const [isClickable, setIsClickable] = useState(true)
 
-  function handleClick(action: () => void) {
+  function handleClick(action) {
     if (!isClickable) return;
     setIsClickable(false);
     action();

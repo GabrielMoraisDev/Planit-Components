@@ -19,6 +19,7 @@ const initialCarousel: CarouselItem[] = [
   { carousel1: { code: "" } },
   { carousel2: { code: "" } },
   { carousel3: { code: "" } },
+  { carousel4: { code: "" } },
 ];
 
 const DataContext = createContext<Data | undefined>(undefined);
