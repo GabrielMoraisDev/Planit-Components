@@ -12,6 +12,19 @@
   --foreground: #ffffff;
 }
 
+:root {
+  --font-dancing-script: 'Dancing Script', cursive;
+  --font-nunito: 'Nunito', sans-serif;
+}
+
+.font-script {
+  font-family: var(--font-dancing-script);
+}
+
+.font-nunito {
+  font-family: var(--font-nunito);
+}
+
 body {
   color: #fff;
   background: #080f1d;

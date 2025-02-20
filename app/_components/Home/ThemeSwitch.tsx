@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import * as Icon from 'react-bootstrap-icons'
 
 export default function ThemeSwitch() {
   const [isDark, setIsDark] = useState(false);
@@ -25,11 +26,10 @@ export default function ThemeSwitch() {
   };
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="absolute right-5 p-2 bg-foreground text-background rounded-md transition-all"
-    >
-      {isDark ? "☀️ Light Mode" : "🌙 Dark Mode"}
-    </button>
+    <div className={`absolute h-8 w-16 p-2 ${isDark ? 'bg-slate-700' : 'bg-slate-300'} right-5 transition-all rounded-full`} onClick={toggleTheme}>
+      <div className={`w-6 h-6 absolute ${isDark ? 'left-[9%] bg-slate-300' : 'left-[55%] bg-slate-400'} duration-300 -translate-y-1/2 top-1/2 rounded-full flex justify-center place-items-center`}></div>
+        <Icon.Sun className={``}/>
+        {isDark}
+    </div>
   );
 }

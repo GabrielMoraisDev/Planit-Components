@@ -1,6 +1,5 @@
 export const codeStringReact = `
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import * as Icon from 'react-bootstrap-icons';
 
 const Carousel3D = () => {
@@ -68,9 +67,7 @@ const Carousel3D = () => {
                         : 'opacity-20'
                     }\`}
                   >
-                    <Image
-                      width={600}
-                      height={600}
+                    <img
                       src={item.imageUrl}
                       alt={item.title}
                       className="w-[30rem] h-full"

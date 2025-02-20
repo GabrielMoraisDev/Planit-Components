@@ -1,14 +1,14 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import { DataProvider } from "@/app/_context/data";  // DataProvider should be used
+import { Dancing_Script, Nunito } from "next/font/google";
+import { DataProvider } from "@/app/_context/data";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing-script",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontNunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
 });
 
@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className={`${fontNunito.variable} ${dancingScript.variable}`}>
+      <body className="font-nunito">
         <DataProvider>{children}</DataProvider>
       </body>
     </html>

@@ -60,7 +60,7 @@ export default function Carousel2() {
 
   return (
     <div
-      className="relative w-full h-[15rem] lg:h-[30rem] mx-auto overflow-hidden rounded-t-lg"
+      className="relative w-full h-[15rem] lg:h-[25rem] mx-auto overflow-hidden rounded-t-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
