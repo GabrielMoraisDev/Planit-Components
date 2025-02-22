@@ -63,7 +63,7 @@ export default function Carousel1() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="w-full h-full bg-slate-700 dark:bg-slate-800 relative duration-300 flex justify-center overflow-hidden">
+      <div className="w-full h-full bg-slate-200 dark:bg-slate-800 relative duration-300 flex justify-center overflow-hidden">
         <div className="w-10 h-10 lg:w-12 lg:h-12 text-slate-800 hover:text-black bg-white/40 hover:bg-slate-100 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white dark:border-slate-500 border border-slate-500 rounded-full absolute -translate-y-1/2 top-1/2 left-2 lg:left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
           onClick={prevImage}
         >

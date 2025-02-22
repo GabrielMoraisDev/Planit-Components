@@ -12,6 +12,8 @@ export const cleanConsole = (text: string) => {
       .replace(/head/g, '<span class="text-orange-500">head</span>')
       .replace(/meta/g, '<span class="text-purple-500">meta</span>')
       .replace(/title/g, '<span class="text-blue-500">title</span>')
+      .replace(/hr/g, '<span class="text-blue-500">hr</span>')
+      .replace(/h1/g, '<span class="text-blue-500">h1</span>')
       .replace(/script/g, '<span class="text-yellow-500">script</span>')
       .replace(/src/g, '<span class="text-green-500">src</span>')
       .replace(/name/g, '<span class="text-blue-500">name</span>')

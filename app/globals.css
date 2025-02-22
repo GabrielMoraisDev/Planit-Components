@@ -4,12 +4,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
-}
-
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
+  --foreground: #080f1d;
 }
 
 :root {
@@ -25,8 +20,18 @@
   font-family: var(--font-nunito);
 }
 
+.light {
+  --background: #ffffff;
+  --foreground: #353942;
+}
+
+.dark {
+  --background: #080f1d;
+  --foreground: #ffffff;
+}
+
 body {
-  color: #fff;
-  background: #080f1d;
+  color: var(--foreground);
+  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }

@@ -1,75 +1,47 @@
-export const codeStringNext = ` 'use client'
-
-import { useState, useEffect, useCallback } from 'react';
+export const codeStringNext = `'use client'
 import * as Icon from 'react-bootstrap-icons';
+import { useState } from 'react';
 
-export default function Carousel1() {
-  const [currentImage, setCurrentImage] = useState&lt;number&gt;(0);
-  const [isHovered, setIsHovered] = useState&lt;boolean&gt;(false);
+const cardData = [
+  {
+    title: "Title of post 1",
+    image: "https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
+  },
+  {
+    title: "Title of post 2",
+    image: "https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
+  },
+  {
+    title: "Title of post 3",
+    image: "https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
+  }
+];
 
-  const images: string[] = [
-    'https://i.pinimg.com/originals/8a/ed/07/8aed075b2259a6f2bace5c4924ceb0a3.jpg', 
-    'https://wallpapers.com/images/hd/4k-ultra-hd-landscape-wallpaper-f7f5eax71jomzq3h.jpg', 
-    'https://wallpapers.com/images/hd/4k-beach-background-f9un4jfonc05kg9r.jpg'
-  ];
-
-  const nextImage = useCallback(() =&gt; {
-    setCurrentImage((prev) =&gt; (prev + 1) % images.length);
-  }, [images.length]);
-
-  const prevImage = useCallback(() =&gt; {
-    setCurrentImage((prev) =&gt; (prev - 1 + images.length) % images.length);
-  }, [images.length]);
-
-  useEffect(() =&gt; {
-    if (!isHovered) {
-      const interval = setInterval(nextImage, 5000);
-      return () =&gt; clearInterval(interval);
-    }
-  }, [isHovered, nextImage]);
+export default function RevealCard() {
+  const [hovered, setHovered] = useState(-1)
 
   return (
-    &lt;&gt;
-      &lt;div
-        className="w-full h-[30rem] flex m-auto justify-center rounded-t-lg overflow-hidden"
-        onMouseEnter={() =&gt; setIsHovered(true)}
-        onMouseLeave={() =&gt; setIsHovered(false)}
-      &gt;
-        &lt;div className="w-full h-full bg-slate-700 dark:bg-slate-800 relative duration-300 flex justify-center overflow-hidden"&gt;
-          &lt;div className="w-32 h-full bg-gradient-to-r from-slate-950 to-transparent absolute left-0 z-10 opacity-75"&gt;&lt;/div&gt;
-          &lt;div
-            className="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
-            onClick={prevImage}
-          &gt;
-            &lt;Icon.ChevronLeft /&gt;
+    &lt;div className="w-full bg-white dark:bg-slate-900 rounded-t-lg py-5 flex flex-wrap justify-center gap-4"&gt;
+      {cardData.map((card, index) =&gt; (
+        &lt;div key={index} className='w-56 h-auto border border-slate-300 dark:border-slate-700 rounded-lg relative cursor-pointer overflow-hidden duration-300 dark:bg-slate-800 bg-white dark:hover:bg-slate-700 m-0' onMouseEnter={()=&gt;setHovered(index)} onMouseLeave={()=&gt;setHovered(-1)}&gt;
+          &lt;div className={\`w-full $\{hovered === index?'h-32':'h-full'} duration-300 bg-center bg-cover absolute top-0 left-0 z-10\`} style={{backgroundImage: \`url($\{card.image})\`}}&gt;
+            &lt;div className={\`w-full h-full bg-white/30 dark:bg-black/30 duration-300 $\{hovered === index?'opacity-0':'opacity-100'}\`}&gt;&lt;/div&gt;
+            &lt;h1 className={\`absolute bottom-0 bg-white dark:bg-transparent w-full text-slate-800 pl-4 py-2 left-0 text-xl font-bold dark:text-white $\{hovered === index?'opacity-0':'opacity-100'} duration-300 z-20\`}&gt;{card.title}&lt;/h1&gt;
           &lt;/div&gt;
-          {images.map((bg, index) =&gt; (
-            &lt;div
-              key={index}
-              className={\`h-full w-full absolute $\{index === currentImage ? 'opacity-100' : 'opacity-0'} duration-300 bg-cover bg-center\`}
-              style={{ backgroundImage: \`url($\{bg})\` }}
-            &gt;&lt;/div&gt;
-          ))}
-          &lt;div className="w-32 h-full bg-gradient-to-l from-slate-950 to-transparent absolute right-0 z-10 opacity-75"&gt;&lt;/div&gt;
-          &lt;div
-            className="w-12 h-12 text-white hover:text-slate-800 bg-slate-800 hover:bg-white border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center"
-            onClick={nextImage}
-          &gt;
-            &lt;Icon.ChevronRight /&gt;
+          &lt;div className="w-full h-auto min-h-32 light:bg-white p-3 pb-9 mt-32 duration-300"&gt;
+            &lt;h1 className={\`text-xl font-bold dark:text-white text-slate-800 $\{hovered === index?'ml-0 opacity-100':'ml-[-1rem] opacity-0'} duration-[1s]\`}&gt;{card.title}&lt;/h1&gt;
+            &lt;p className={\`truncate dark:text-white text-slate-800 w-full $\{hovered === index?'ml-0 opacity-100':'ml-[-1rem] opacity-0'} duration-[2s]\`}&gt;
+              {card.description}
+            &lt;/p&gt;
+            &lt;p className={\`text-sm my-2 dark:text-white text-slate-900 duration-[3s] $\{hovered === index?'opacity-100':'opacity-0'}\`}&gt;See more&lt;/p&gt;
+            &lt;hr className={\`dark:border-slate-400 border-slate-600 duration-700 $\{hovered === index?'w-[100%]':'w-[0%]'}\`}/&gt;
           &lt;/div&gt;
-
-          &lt;div className="w-full h-5 rounded-full absolute bottom-5 -translate-x-1/2 left-1/2 flex gap-x-3 justify-center z-30"&gt;
-            {images.map((_, i) =&gt; (
-              &lt;div
-                key={i}
-                className={\`h-full w-5 duration-300 rounded-full $\{i === currentImage ? 'bg-white' : 'bg-slate-600'}\`}
-              &gt;&lt;/div&gt;
-            ))}
-          &lt;/div&gt;
+          &lt;div className="absolute bottom-0 w-full h-auto text-left px-3 pb-2 dark:text-slate-400 text-slate-800 text-sm flex place-items-center duration-300"&gt;&lt;Icon.Award className='mr-1'/&gt;01/01/2025&lt;/div&gt;
         &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/&gt;
-  );
-}
-
-  `
+      ))}
+    &lt;/div&gt;
+  )
+}`

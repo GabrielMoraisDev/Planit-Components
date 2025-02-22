@@ -1,124 +1,91 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
-  <title>Carousel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reveal Card</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body class="bg-gray-100 dark:bg-slate-900">
-  <div id="carousel-container" class="w-full relative bg-white rounded-t-lg dark:bg-slate-900"></div>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const carouselContainer = document.getElementById('carousel-container');
-      const items = [
-        { id: 1, title: 'First Card!', description: "This is the first card!", img: 'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380' },
-        { id: 2, title: 'Second Card!', description: "This is the second!", img: 'https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380' },
-        { id: 3, title: 'Third Card!', description: "I'm the third!", img: 'https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380' },
-        { id: 4, title: 'Fourth Card!', description: "fouth", img: 'https://img.freepik.com/vetores-gratis/fundo-de-montanhas-em-aquarela_23-2149238186.jpg?t=st=1739410913~exp=1739414513~hmac=db6c0c016287d8b1e24cca28a5acccb61a4ce212d87cc0127c46b07c4735bb5f&w=1380' },
-        { id: 5, title: 'Fifth Card!', description: "Last in List :)", img: 'https://img.freepik.com/vetores-gratis/fundo-de-paisagem-de-verao-para-zoom_52683-42162.jpg?t=st=1739411112~exp=1739414712~hmac=ab98c321de7cc4e633095f87b49eb7886f6e2f3e0aa1677070c9e4b0034c6036&w=1380' },
-      ];
+<body class="bg-white dark:bg-slate-900">
 
-      let firstItem = 0;
-      let isHovered = false;
-      let isClickable = true;
-      let toRight = false;
+    <div class="w-full bg-white dark:bg-slate-900 rounded-t-lg py-5 flex flex-wrap justify-center gap-4" id="cardContainer"></div>
 
-      function setQntClass(length) {
-        switch (length) {
-          case 5:
-            return 'w-[500%] sm:w-[250%] md:w-[165%] lg:w-[165%] xl:w-[167%] 2xl:w-[125%]';
-          case 6:
-            return 'w-[150%]';
-          case 7:
-            return 'w-[175%]';
-          case 8:
-            return 'w-[200%]';
-          case 9:
-            return 'w-[225%]';
-          case 10:
-            return 'w-[250%]';
-          default:
-            return 'w-[100%]';
-        }
-      }
+    <script>
+        const cardData = [
+            {
+                title: "Title of post 1",
+                image: "https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380",
+                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
+            },
+            {
+                title: "Title of post 2",
+                image: "https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380",
+                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
+            },
+            {
+                title: "Title of post 3",
+                image: "https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380",
+                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
+            }
+        ];
 
-      function handleClick(action) {
-        if (!isClickable) return;
-        isClickable = false;
-        action();
-        setTimeout(() => isClickable = true, 300);
-      }
+        const cardContainer = document.getElementById('cardContainer');
 
-      function leftClick() {
-        toRight = false;
-        if (firstItem === 0) {
-          firstItem = items.length;
-          setTimeout(() => firstItem = items.length - 1, 0);
-        } else {
-          firstItem -= 1;
-        }
-        renderCarousel();
-      }
+        cardData.forEach((card, index) => {
+            const cardElement = document.createElement('div');
+            cardElement.className = "w-56 h-auto border border-slate-300 dark:border-slate-700 rounded-lg relative cursor-pointer overflow-hidden duration-300 dark:bg-slate-800 bg-white dark:hover:bg-slate-700 m-0";
+            cardElement.dataset.index = index;
 
-      function rightClick() {
-        toRight = true;
-        firstItem += 1;
-        if (firstItem === items.length - 1 || firstItem === items.length) {
-          setTimeout(() => firstItem = 0, 300);
-        }
-        renderCarousel();
-      }
-
-      function renderCarousel() {
-        const qntClass = setQntClass(items.length);
-        carouselContainer.innerHTML = `
-          <div class="w-[85%] overflow-hidden m-auto">
-            <div class="flex ${qntClass}">
-              ${items.map(item => `
-                <div class="h-72 overflow-hidden ${toRight ? (firstItem > 0 && firstItem < items.length + 1) && 'duration-300' : (firstItem < items.length) && 'duration-300'} ${firstItem >= item.id ? 'w-0' : 'w-full'} justify-center place-items-center flex">
-                  <div class="min-w-[11rem] sm:min-w-[10rem] md:min-w-[10rem] lg:min-w-[13rem] 2xl:min-w-[15rem] h-60 bg-slate-300 dark:bg-slate-800 p-3 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 duration-300 cursor-pointer">
-                    <div class="m-auto w-full h-32 bg-center bg-cover rounded-md mb-3" style="background-image: url('${item.img}')"></div>
-                    <h1 class="text-xl text-black dark:text-white">${item.title}</h1>
-                    <p class="truncate text-slate-700 dark:text-slate-400">${item.description}</p>
-                    <p class="text-sm text-slate-400 dark:text-slate-600">See more</p>
-                  </div>
+            cardElement.innerHTML = `
+                <div class="w-full h-full bg-center bg-cover absolute top-0 left-0 z-10 duration-300" style="background-image: url('${card.image}');">
+                    <div class="w-full h-full bg-white/30 dark:bg-black/30 duration-300"></div>
+                    <h1 class="absolute bottom-0 bg-white dark:bg-transparent w-full text-slate-800 pl-4 py-2 left-0 text-xl font-bold dark:text-white duration-300 z-20">
+                        ${card.title}
+                    </h1>
                 </div>
-              `).join('')}
-              ${items.map(item => `
-                <div class="h-72 overflow-hidden ${toRight ? (firstItem > 0 && firstItem < items.length + 1) && 'duration-300' : (firstItem < items.length) && 'duration-300'} ${firstItem < item.id ? 'w-0' : 'w-full'} justify-center place-items-center flex">
-                  <div class="min-w-[11rem] sm:min-w-[10rem] md:min-w-[10rem] lg:min-w-[13rem] 2xl:min-w-[15rem] h-60 bg-slate-300 dark:bg-slate-800 p-3 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 duration-300 cursor-pointer">
-                    <div class="m-auto w-full h-32 bg-center bg-cover rounded-md mb-3" style="background-image: url('${item.img}')"></div>
-                    <h1 class="text-xl text-black dark:text-white">${item.title}</h1>
-                    <p class="truncate text-slate-700 dark:text-slate-400">${item.description}</p>
-                    <p class="text-sm text-slate-400 dark:text-slate-600">See more</p>
-                  </div>
+                <div class="w-full h-auto min-h-32 light:bg-white p-3 pb-9 mt-32 duration-300 opacity-0">
+                    <h1 class="text-xl font-bold dark:text-white text-slate-800 duration-[1s]">
+                        ${card.title}
+                    </h1>
+                    <p class="truncate dark:text-white text-slate-800 w-full duration-[2s]">
+                        ${card.description}
+                    </p>
+                    <p class="text-sm my-2 dark:text-white text-slate-900 duration-[3s]">
+                        See more
+                    </p>
+                    <hr class="dark:border-slate-400 border-slate-600 duration-700 w-[0%]">
                 </div>
-              `).join('')}
-            </div>
-            <div class="w-10 h-10 lg:w-12 lg:h-12 text-slate-800 hover:text-black bg-white hover:bg-slate-200 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white border-slate-600 dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 right-2 lg:right-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center" onclick="handleClick(rightClick)">
-              <i class="bi bi-chevron-right"></i>
-            </div>
-            <div class="w-10 h-10 lg:w-12 lg:h-12 text-slate-800 hover:text-black bg-white hover:bg-slate-200 dark:text-white dark:hover:text-slate-800 dark:bg-slate-800 dark:hover:bg-white border-slate-600 dark:border-slate-500 border rounded-full absolute -translate-y-1/2 top-1/2 left-2 lg:left-7 duration-300 z-20 cursor-pointer flex justify-center place-items-center" onclick="handleClick(leftClick)">
-              <i class="bi bi-chevron-left"></i>
-            </div>
-          </div>
-        `;
-      }
+                <div class="absolute bottom-0 w-full h-auto text-left px-3 pb-2 dark:text-slate-400 text-slate-800 text-sm flex place-items-center duration-300">
+                    <i class="bi bi-award mr-1"></i>01/01/2025
+                </div>
+            `;
 
-      carouselContainer.addEventListener('mouseenter', () => isHovered = true);
-      carouselContainer.addEventListener('mouseleave', () => isHovered = false);
+            cardElement.addEventListener("mouseenter", () => {
+                const overlay = cardElement.querySelector(".w-full.h-full.bg-white\\/30");
+                const title = cardElement.querySelector(".absolute.bottom-0");
+                const content = cardElement.querySelector(".w-full.h-auto.min-h-32");
 
-      setInterval(() => {
-        if (!isHovered) {
-          rightClick();
-        }
-      }, 3000);
+                overlay.classList.add("opacity-0");
+                title.classList.add("opacity-0");
+                content.classList.remove("opacity-0");
+                content.querySelector("hr").classList.add("w-[100%]");
+            });
 
-      renderCarousel();
-    });
-  </script>
+            cardElement.addEventListener("mouseleave", () => {
+                const overlay = cardElement.querySelector(".w-full.h-full.bg-white\\/30");
+                const title = cardElement.querySelector(".absolute.bottom-0");
+                const content = cardElement.querySelector(".w-full.h-auto.min-h-32");
+
+                overlay.classList.remove("opacity-0");
+                title.classList.remove("opacity-0");
+                content.classList.add("opacity-0");
+                content.querySelector("hr").classList.remove("w-[100%]");
+            });
+
+            cardContainer.appendChild(cardElement);
+        });
+    </script>
+
 </body>
 </html>

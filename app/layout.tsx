@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fontNunito.variable} ${dancingScript.variable}`}>
-      <body className="font-nunito">
+      <body className="font-nunito duration-300">
         <DataProvider>{children}</DataProvider>
       </body>
     </html>

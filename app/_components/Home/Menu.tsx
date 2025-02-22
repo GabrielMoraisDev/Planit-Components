@@ -18,7 +18,7 @@ export default function Menu() {
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: false,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "dark",
@@ -31,35 +31,35 @@ export default function Menu() {
       <div className="fixed w-10 h-10 z-50 left-5 top-3 justify-center place-items-center flex" onClick={() => { setActiveMenu((prev) => !prev); setMenuOpen(!activeMenu) }}>
         {!activeMenu ? <Icon.List className="w-7 h-7 duration-300" width={35} /> : <Icon.X className="w-7 h-7 duration-300" width={35} />}
       </div>
-      <main className={`fixed top-0 left-0 ${activeMenu ? 'w-60 px-10' : 'w-0 px-0'} duration-300 h-full bg-slate-900 z-40 pt-24 overflow-hidden`}>
+      <main className={`fixed top-0 left-0 ${activeMenu ? 'w-60 px-10' : 'w-0 px-0'} duration-300 h-full bg-slate-300 dark:bg-slate-900 z-40 pt-24 overflow-hidden`}>
         <Link href='/'>
-          <div className={`text-nowrap cursor-pointer h-8 flex place-items-center duration-300 ${pathname === '/' ? 'text-sky-400 pl-2' : 'text-slate-400 hover:pl-2 hover:text-white '}`}>
+          <div className={`text-nowrap cursor-pointer h-8 flex place-items-center duration-300 ${pathname === '/' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-sky-500 dark:hover:text-white '}`}>
             Get Started <Icon.Fire className="ml-1 mb-1" />
           </div>
         </Link>
         <hr className="my-5 border-slate-400" />
-        <div className={`cursor-default h-8 flex place-items-center duration-300 ${componentsSection ? 'text-sky-300' : 'text-slate-400'}`}
+        <div className={`cursor-default h-8 flex place-items-center duration-300 ${componentsSection ? 'text-sky-700 dark:text-sky-300' : 'text-slate-700 dark:text-slate-400'}`}
           onMouseEnter={() => setComponentsSection(true)} onMouseLeave={() => setComponentsSection(false)}>
           Components
         </div>
         <div className={`${componentsSection ? 'max-h-72' : 'max-h-72'} duration-300 overflow-hidden pl-3`}
           onMouseEnter={() => setComponentsSection(true)} onMouseLeave={() => setComponentsSection(false)}>
-          <Link href="/components/navbar"><div className={`cursor-pointer ${pathname === '/components/navbar' ? 'text-sky-400 pl-2' : 'text-slate-400 hover:pl-2 hover:text-white'} duration-300 py-2`}>Navbar</div></Link>
-          <Link href="/components/card"><div className={`cursor-pointer ${pathname === '/components/card' ? 'text-sky-400 pl-2' : 'text-slate-400 hover:pl-2 hover:text-white'} duration-300 py-2`}>Card</div></Link>
-          <Link href="/components/input"><div className={`cursor-pointer ${pathname === '/components/input' ? 'text-sky-400 pl-2' : 'text-slate-400 hover:pl-2 hover:text-white'} duration-300 py-2`}>Input</div></Link>
-          <Link href="/components/select"><div className={`cursor-pointer ${pathname === '/components/select' ? 'text-sky-400 pl-2' : 'text-slate-400 hover:pl-2 hover:text-white'} duration-300 py-2`}>Select</div></Link>
-          <Link href="/components/carousel"><div className={`cursor-pointer ${pathname === '/components/carousel' ? 'text-sky-400 pl-2' : 'text-slate-400 hover:pl-2 hover:text-white'} duration-300 py-2`}>Carousel</div></Link>
+          <Link href="/components/navbar"><div className={`cursor-pointer ${pathname === '/components/navbar' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Navbar</div></Link>
+          <Link href="/components/card"><div className={`cursor-pointer ${pathname === '/components/card' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Card</div></Link>
+          <Link href="/components/input"><div className={`cursor-pointer ${pathname === '/components/input' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Input</div></Link>
+          <Link href="/components/select"><div className={`cursor-pointer ${pathname === '/components/select' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Select</div></Link>
+          <Link href="/components/carousel"><div className={`cursor-pointer ${pathname === '/components/carousel' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Carousel</div></Link>
         </div>
         <hr className="my-5 border-slate-400" />
-        <div className={`cursor-default h-8 flex place-items-center duration-300 overflow-hidden text-slate-600`}>
+        <div className={`cursor-default h-8 flex place-items-center duration-300 overflow-hidden text-slate-400 dark:text-slate-600`}>
           Examples
         </div>
         <div className={`max-h-72 duration-300 overflow-hidden pl-3`}>
-          <div onClick={handleSoon} className="cursor-pointer text-slate-600 duration-300 py-2">Blog</div>
-          <div onClick={handleSoon} className="cursor-pointer text-slate-600 duration-300 py-2">Catalog</div>
-          <div onClick={handleSoon} className="cursor-pointer text-slate-600 duration-300 py-2">Portfolio</div>
-          <div onClick={handleSoon} className="cursor-pointer text-slate-600 duration-300 py-2">E-Commerce</div>
-          <div onClick={handleSoon} className="cursor-pointer text-slate-600 duration-300 py-2">Landing</div>
+          <div onClick={handleSoon} className="cursor-pointer dark:text-slate-600 text-slate-400 duration-300 py-2">Blog</div>
+          <div onClick={handleSoon} className="cursor-pointer dark:text-slate-600 text-slate-400 duration-300 py-2">Catalog</div>
+          <div onClick={handleSoon} className="cursor-pointer dark:text-slate-600 text-slate-400 duration-300 py-2">Portfolio</div>
+          <div onClick={handleSoon} className="cursor-pointer dark:text-slate-600 text-slate-400 duration-300 py-2">E-Commerce</div>
+          <div onClick={handleSoon} className="cursor-pointer dark:text-slate-600 text-slate-400 duration-300 py-2">Landing</div>
         </div>
       </main>
     </>

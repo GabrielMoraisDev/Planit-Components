@@ -10,11 +10,11 @@ const Carousel3D = () =&gt; {
   const [currentItem, setCurrentItem] = useState&lt;number&gt;(0);
 
   const items = [
-    { title: 'Imagem 1', description: 'Descrição da imagem 1', imageUrl: 'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380' },
-    { title: 'Imagem 2', description: 'Descrição da imagem 2', imageUrl: 'https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380' },
-    { title: 'Imagem 3', description: 'Descrição da imagem 3', imageUrl: 'https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380' },
-    { title: 'Imagem 4', description: 'Descrição da imagem 4', imageUrl: 'https://img.freepik.com/vetores-gratis/fundo-de-montanhas-em-aquarela_23-2149238186.jpg?t=st=1739410913~exp=1739414513~hmac=db6c0c016287d8b1e24cca28a5acccb61a4ce212d87cc0127c46b07c4735bb5f&w=1380' },
-    { title: 'Imagem 5', description: 'Descrição da imagem 5', imageUrl: 'https://img.freepik.com/vetores-gratis/fundo-de-paisagem-de-verao-para-zoom_52683-42162.jpg?t=st=1739411112~exp=1739414712~hmac=ab98c321de7cc4e633095f87b49eb7886f6e2f3e0aa1677070c9e4b0034c6036&w=1380' },
+    { title: 'Index 1', description: 'Description of index 1', imageUrl: 'https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380' },
+    { title: 'Index 2', description: 'Description of index 2', imageUrl: 'https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380' },
+    { title: 'Index 3', description: 'Description of index 3', imageUrl: 'https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380' },
+    { title: 'Index 4', description: 'Description of index 4', imageUrl: 'https://img.freepik.com/vetores-gratis/fundo-de-montanhas-em-aquarela_23-2149238186.jpg?t=st=1739410913~exp=1739414513~hmac=db6c0c016287d8b1e24cca28a5acccb61a4ce212d87cc0127c46b07c4735bb5f&w=1380' },
+    { title: 'Index 5', description: 'Description of index 5', imageUrl: 'https://img.freepik.com/vetores-gratis/fundo-de-paisagem-de-verao-para-zoom_52683-42162.jpg?t=st=1739411112~exp=1739414712~hmac=ab98c321de7cc4e633095f87b49eb7886f6e2f3e0aa1677070c9e4b0034c6036&w=1380' },
   ];
 
   const numberOfItems = items.length;
@@ -46,7 +46,7 @@ const Carousel3D = () =&gt; {
       &lt;div className="absolute top-0 right-0 h-full w-72 lg:bg-gradient-to-r from-transparent to-slate-400 dark:to-black/90 z-10"&gt;&lt;/div&gt;
       &lt;div className="relative w-full h-full"&gt;
         &lt;div
-          className="m-auto w-full h-full preserve-3d duration-1000 delay-150 "
+          className="m-auto w-full h-full preserve-3d duration-1000"
           style={{ transform: \`translateZ(-$\{radius}px) rotateY($\{rotation}deg)\`}}
         &gt;
           {items.map((item, index) =&gt; {
