@@ -5,7 +5,7 @@ import * as Icon from 'react-bootstrap-icons'
 import Nav from '@/app/_components/Home/Nav'
 import Menu from '@/app/_components/Home/Menu'
 import { useDataContext } from "@/app/_context/data";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 export default function App(){
   const { menuOpen } = useDataContext();
@@ -50,7 +50,6 @@ export default function App(){
 
   return(
     <>
-      <ToastContainer />
       <Nav />
       <Menu />
       {/* <Test /> */}

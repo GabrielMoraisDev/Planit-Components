@@ -46,9 +46,11 @@ export default function Menu() {
           onMouseEnter={() => setComponentsSection(true)} onMouseLeave={() => setComponentsSection(false)}>
           <Link href="/components/navbar"><div className={`cursor-pointer ${pathname === '/components/navbar' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Navbar</div></Link>
           <Link href="/components/card"><div className={`cursor-pointer ${pathname === '/components/card' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Card</div></Link>
-          <Link href="/components/input"><div className={`cursor-pointer ${pathname === '/components/input' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Input</div></Link>
-          <Link href="/components/select"><div className={`cursor-pointer ${pathname === '/components/select' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Select</div></Link>
+          <div className={`cursor-pointer ${pathname === '/components/input' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-500 dark:text-slate-600'} duration-300 py-2`} onClick={handleSoon}>Input</div>
+          <div className={`cursor-pointer ${pathname === '/components/select' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-500 dark:text-slate-600'} duration-300 py-2`} onClick={handleSoon}>Select</div>
           <Link href="/components/carousel"><div className={`cursor-pointer ${pathname === '/components/carousel' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-800 dark:text-slate-400 hover:pl-2 hover:text-slate-600 dark:hover:text-white'} duration-300 py-2`}>Carousel</div></Link>
+          <div className={`cursor-pointer ${pathname === '/components/select' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-500 dark:text-slate-600'} duration-300 py-2`} onClick={handleSoon}>Login</div>
+          <div className={`cursor-pointer ${pathname === '/components/select' ? 'text-sky-500 dark:text-sky-400 pl-2' : 'text-slate-500 dark:text-slate-600'} duration-300 py-2`} onClick={handleSoon}>Banner</div>
         </div>
         <hr className="my-5 border-slate-400" />
         <div className={`cursor-default h-8 flex place-items-center duration-300 overflow-hidden text-slate-400 dark:text-slate-600`}>

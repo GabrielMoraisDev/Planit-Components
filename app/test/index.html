@@ -3,89 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reveal Card</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <title>Navbar</title>
 </head>
-<body class="bg-white dark:bg-slate-900">
+<body class="bg-slate-900">
 
-    <div class="w-full bg-white dark:bg-slate-900 rounded-t-lg py-5 flex flex-wrap justify-center gap-4" id="cardContainer"></div>
+    <div id="navbar" class="max-h-20 lg:py-0 lg:h-16 bg-slate-700 dark:bg-slate-800 relative duration-500 flex justify-center overflow-hidden">
+
+        <div id="menu-toggle" class="lg:hidden text-sky-300 absolute left-4 top-5 w-10 h-10 flex justify-center items-center rounded-md cursor-pointer">
+            <i id="menu-icon" class="bi-list text-3xl absolute duration-300"></i>
+            <i id="close-icon" class="bi-x text-3xl absolute duration-300 opacity-0"></i>
+        </div>
+
+        <div class="absolute right-5 top-2 lg:top-0 lg:left-10 h-16 lg:h-full w-auto flex items-center">
+            <img src="/planit.png" alt="Logo" class="h-[70%] w-auto">
+        </div>
+
+        <div id="nav-items" class="h-full w-auto lg:flex items-center hidden lg:ml-[-6rem] xl:ml-0">
+            <a href="#" class="nav-link" data-label="Home">
+                <span class="nav-text">Home</span>
+                <i class="nav-icon bi-house"></i>
+            </a>
+            <a href="#" class="nav-link" data-label="Projects">
+                <span class="nav-text">Projects</span>
+                <i class="nav-icon bi-box2"></i>
+            </a>
+            <a href="#" class="nav-link" data-label="About">
+                <span class="nav-text">About</span>
+                <i class="nav-icon bi-info-circle"></i>
+            </a>
+            <a href="#" class="nav-link" data-label="Enterprise">
+                <span class="nav-text">Enterprise</span>
+                <i class="nav-icon bi-building"></i>
+            </a>
+            <a href="#" class="nav-link" data-label="Contact">
+                <span class="nav-text">Contact</span>
+                <i class="nav-icon bi-person-lines-fill"></i>
+            </a>
+        </div>
+
+        <div class="absolute bottom-7 lg:right-5 h-auto w-auto flex lg:-translate-y-1/2 lg:top-1/2 items-center">
+            <button class="auth-button bg-sky-200 hover:bg-white text-slate-800 dark:bg-slate-700 dark:hover:bg-sky-300 dark:text-white dark:hover:text-slate-900">Sign-in</button>
+            <button class="auth-button bg-sky-300 hover:bg-white text-slate-800 dark:bg-sky-400 dark:hover:bg-sky-200 dark:text-slate-900">Sign-up</button>
+        </div>
+
+    </div>
 
     <script>
-        const cardData = [
-            {
-                title: "Title of post 1",
-                image: "https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
-            },
-            {
-                title: "Title of post 2",
-                image: "https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
-            },
-            {
-                title: "Title of post 3",
-                image: "https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380",
-                description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
-            }
-        ];
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.getElementById("menu-toggle");
+            const menuIcon = document.getElementById("menu-icon");
+            const closeIcon = document.getElementById("close-icon");
+            const navbar = document.getElementById("navbar");
+            const navItems = document.getElementById("nav-items");
 
-        const cardContainer = document.getElementById('cardContainer');
-
-        cardData.forEach((card, index) => {
-            const cardElement = document.createElement('div');
-            cardElement.className = "w-56 h-auto border border-slate-300 dark:border-slate-700 rounded-lg relative cursor-pointer overflow-hidden duration-300 dark:bg-slate-800 bg-white dark:hover:bg-slate-700 m-0";
-            cardElement.dataset.index = index;
-
-            cardElement.innerHTML = `
-                <div class="w-full h-full bg-center bg-cover absolute top-0 left-0 z-10 duration-300" style="background-image: url('${card.image}');">
-                    <div class="w-full h-full bg-white/30 dark:bg-black/30 duration-300"></div>
-                    <h1 class="absolute bottom-0 bg-white dark:bg-transparent w-full text-slate-800 pl-4 py-2 left-0 text-xl font-bold dark:text-white duration-300 z-20">
-                        ${card.title}
-                    </h1>
-                </div>
-                <div class="w-full h-auto min-h-32 light:bg-white p-3 pb-9 mt-32 duration-300 opacity-0">
-                    <h1 class="text-xl font-bold dark:text-white text-slate-800 duration-[1s]">
-                        ${card.title}
-                    </h1>
-                    <p class="truncate dark:text-white text-slate-800 w-full duration-[2s]">
-                        ${card.description}
-                    </p>
-                    <p class="text-sm my-2 dark:text-white text-slate-900 duration-[3s]">
-                        See more
-                    </p>
-                    <hr class="dark:border-slate-400 border-slate-600 duration-700 w-[0%]">
-                </div>
-                <div class="absolute bottom-0 w-full h-auto text-left px-3 pb-2 dark:text-slate-400 text-slate-800 text-sm flex place-items-center duration-300">
-                    <i class="bi bi-award mr-1"></i>01/01/2025
-                </div>
-            `;
-
-            cardElement.addEventListener("mouseenter", () => {
-                const overlay = cardElement.querySelector(".w-full.h-full.bg-white\\/30");
-                const title = cardElement.querySelector(".absolute.bottom-0");
-                const content = cardElement.querySelector(".w-full.h-auto.min-h-32");
-
-                overlay.classList.add("opacity-0");
-                title.classList.add("opacity-0");
-                content.classList.remove("opacity-0");
-                content.querySelector("hr").classList.add("w-[100%]");
+            menuToggle.addEventListener("click", function () {
+                const isOpen = navbar.classList.contains("max-h-[70rem]");
+                navbar.classList.toggle("max-h-[70rem]", !isOpen);
+                navbar.classList.toggle("pt-5", !isOpen);
+                navbar.classList.toggle("pb-24", !isOpen);
+                menuIcon.classList.toggle("opacity-0", !isOpen);
+                menuIcon.classList.toggle("rotate-[70deg]", !isOpen);
+                closeIcon.classList.toggle("opacity-100", !isOpen);
+                closeIcon.classList.toggle("rotate-[0deg]", !isOpen);
+                navItems.classList.toggle("hidden", isOpen);
+                navItems.classList.toggle("opacity-100", !isOpen);
             });
 
-            cardElement.addEventListener("mouseleave", () => {
-                const overlay = cardElement.querySelector(".w-full.h-full.bg-white\\/30");
-                const title = cardElement.querySelector(".absolute.bottom-0");
-                const content = cardElement.querySelector(".w-full.h-auto.min-h-32");
+            document.querySelectorAll(".nav-link").forEach(link => {
+                const icon = link.querySelector(".nav-icon");
+                const text = link.querySelector(".nav-text");
 
-                overlay.classList.remove("opacity-0");
-                title.classList.remove("opacity-0");
-                content.classList.add("opacity-0");
-                content.querySelector("hr").classList.remove("w-[100%]");
+                link.addEventListener("mouseenter", () => {
+                    text.classList.add("opacity-0");
+                    icon.classList.add("opacity-100", "translate-y-[-10px]");
+                });
+
+                link.addEventListener("mouseleave", () => {
+                    text.classList.remove("opacity-0");
+                    icon.classList.remove("opacity-100", "translate-y-[-10px]");
+                });
             });
-
-            cardContainer.appendChild(cardElement);
         });
     </script>
+
+    <style>
+        .nav-link {
+            position: relative;
+            height: 100%;
+            cursor: pointer;
+            color: #38bdf8;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-icon {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 1.5rem;
+        }
+
+        .nav-text {
+            transition: opacity 0.3s;
+        }
+
+        .auth-button {
+            width: 8rem;
+            padding: 0.5rem;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+    </style>
 
 </body>
 </html>

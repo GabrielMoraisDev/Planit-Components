@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as Icon from "react-bootstrap-icons";
 import { cleanConsole } from '@/app/_components/console';
 import { useDataContext } from "../_context/data";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 interface propsCode {
     codeString: string;
@@ -43,7 +43,6 @@ export default function Copy({ codeString }: propsCode) {
 
     return (
         <>
-            <ToastContainer />
             <div className="w-full h-28 lg:h-16 bg-slate-300 dark:bg-slate-700 m-auto relative rounded-b-lg duration-300 overflow-hidden">
                 <div 
                     className="w-44 h-[30%] lg:h-[60%] bg-slate-200 dark:bg-slate-600 hover:bg-white dark:hover:bg-slate-500 duration-300 rounded-full cursor-pointer absolute -translate-y-1/2 top-1/2 mt-[-1.2rem] lg:mt-0 left-5 flex justify-center place-items-center"
@@ -76,7 +75,7 @@ export default function Copy({ codeString }: propsCode) {
                 </div>
             </div>
 
-            <div className={`bg-slate-200 dark:bg-slate-800 w-[100%] m-auto mt-4 ${viewCode ? 'p-4 max-h-[30rem] overflow-y-auto' : 'max-h-0 p-0 overflow-hidden'} duration-300`}>
+            <div className={` bg-slate-200 dark:bg-slate-800 w-[100%] m-auto mt-4 ${viewCode ? 'p-4 max-h-[30rem] overflow-y-auto border dark:border-transparent rounded-md' : 'max-h-0 p-0 overflow-hidden'} border-slate-400 dark:border-transparent duration-300`}>
                 <pre className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: cleanConsole(codeString) }} />
             </div>
         </>

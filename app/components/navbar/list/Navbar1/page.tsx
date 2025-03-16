@@ -1,7 +1,11 @@
 'use client'
 import Image from 'next/image'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDataContext } from "@/app/_context/data";
 import * as Icon from 'react-bootstrap-icons';
+import {codeStringNext} from "../../list/Navbar1/codeNext";
+import {codeStringJs} from "../../list/Navbar1/codeJs";
+import {codeStringReact} from "../../list/Navbar1/codeReact";
 
 export default function Nav1() {
   const items = [
@@ -14,9 +18,32 @@ export default function Nav1() {
 
   const [hovered, setHovered] = useState<string | null>(null);
   const [menuMobile, setMenuMobile] = useState<boolean>(false);
+  const { lang, setNavbar } = useDataContext();
+    
+      useEffect(()=> {
+        if(lang === 'js'){
+          setNavbar(prevState => 
+            prevState.map(item => 
+              item.navbar1 ? { navbar1: { code: codeStringJs } } : item
+            )
+          );
+        }else if(lang === 'react'){
+          setNavbar(prevState => 
+            prevState.map(item => 
+              item.navbar1 ? { navbar1: { code: codeStringReact } } : item
+            )
+          );
+        }else{
+          setNavbar(prevState => 
+            prevState.map(item => 
+              item.navbar1 ? { navbar1: { code: codeStringNext } } : item
+            )
+          );
+        }
+    }, [lang, setNavbar])
 
   return (
-    <div className={`${menuMobile ? 'max-h-[70rem] pt-5 pb-24' : 'max-h-20'} lg:py-0 lg:h-16 bg-slate-700 dark:bg-slate-800 relative duration-500 flex justify-center overflow-hidden`}>
+    <div className={`${menuMobile ? 'max-h-[70rem] pt-5 pb-24' : 'max-h-20'} lg:py-0 lg:h-16 bg-slate-700 dark:bg-slate-900 relative duration-500 flex justify-center overflow-hidden`}>
 
       <div className="lg:hidden text-sky-300 absolute left-4 top-5 w-10 h-10 flex justify-center place-items-center rounded-md" onClick={() => setMenuMobile(!menuMobile)}>
         <Icon.List className={`w-8 h-8 absolute duration-300 ${menuMobile ? 'opacity-0 rotate-[70deg]' : 'opacity-100 rotate-[0deg]'}`}/> 
