@@ -14,11 +14,11 @@ export default function CarouselExamples() {
 
   
   return (
-    <>
+    <div className={`${menuOpen?'md:w-[70%] lg:w-[80%] 2xl:w-[85%] w-[100%]':'w-[100%]'} ml-auto duration-300`}>
       <Nav />
       <Menu />
       <div className="h-16"></div>
-      <div className={`w-[95%] sm:w-[85%] xl:w-[75%] m-auto duration-300 ${menuOpen ? 'xl:mr-[3.5%] 2xl:mr-[5%] lg:float-end':'xl:m-auto 2xl:m-auto lg:float-none '}`}>
+      <div className='w-[90%] m-auto duration-300'>
         <div className="h-8"></div>
         <div className="w-full h-full bg-slate-200 dark:bg-slate-800 px-5 pt-5 pb-2 rounded-lg m-auto">
           <div className="w-auto bg-slate-300 dark:bg-slate-900 mb-3 rounded-md pl-5 py-3 flex gap-2 place-items-center">
@@ -60,8 +60,9 @@ export default function CarouselExamples() {
           <Card4 />
           <ConsoleCopy codeString={card.find(item => item.card4)?.card4.code || ""} />
         </div>
+        <div className="h-96 text-center mt-3">More components comming soon!</div>
         <div className="h-96"></div>
       </div>
-    </>
+    </div>
   );
 }

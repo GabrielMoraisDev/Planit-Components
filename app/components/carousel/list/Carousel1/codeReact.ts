@@ -2,7 +2,7 @@ export const codeStringReact = `
 import { useState, useEffect, useCallback } from 'react';
 import * as Icon from 'react-bootstrap-icons';
 
-export default function Carousel1() {
+export default function FadeCarousel() {
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 

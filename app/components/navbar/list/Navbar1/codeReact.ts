@@ -2,7 +2,7 @@ export const codeStringReact = `
 import { useState } from 'react';
 import * as Icon from 'react-bootstrap-icons';
 
-export default function Nav1() {
+export default function NavHoverIcons() {
   const items = [
     { label: 'Home', href: '#', icon: Icon.House },
     { label: 'Projects', href: '#', icon: Icon.Box2 },

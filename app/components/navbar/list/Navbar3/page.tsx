@@ -1,96 +1,143 @@
-'use client'
+"use client";
+import '@/app/globals.css';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import * as Icon from 'react-bootstrap-icons';
-import { useEffect, useState } from 'react';
 import { useDataContext } from "@/app/_context/data";
 import {codeStringNext} from "./codeNext";
 import {codeStringJs} from "./codeJs";
 import {codeStringReact} from "./codeReact";
 
-const cardData = [
-  {
-    title: "Title of post 1",
-    image: "https://img.freepik.com/vetores-gratis/paisagem-montanhosa-de-design-plano_23-2149172160.jpg?t=st=1739410824~exp=1739414424~hmac=d0f36143a64390159e168353ff055b63f381b7224e350663c59db994e18d731f&w=1380",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
-  },
-  {
-    title: "Title of post 2",
-    image: "https://img.freepik.com/vetores-gratis/tema-de-fundo-de-paisagem-natural_23-2148650336.jpg?t=st=1739410861~exp=1739414461~hmac=2b0e45dba5dcfdda7d49e88982db3c9461e83c6b0a14f7f5179eeeaaa7bad495&w=1380",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
-  },
-  {
-    title: "Title of post 3",
-    image: "https://img.freepik.com/vetores-gratis/desenho-plano-desenhado-a-mao-paisagem-montanhosa_23-2149158786.jpg?t=st=1739410959~exp=1739414559~hmac=9edbb80ea32f6c660b4ad86e059b2ed6c353d54751974f97a733696aaedc3698&w=1380",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel eius laborum inventore earum sunt? Blanditiis quo saepe, nulla possimus, cumque obcaecati nam modi ex inventore, rem voluptatibus! Rerum, minus eligendi!"
-  }
-];
+export default function Nav3() {
+    const [menu, setMenu] = useState<boolean>(false);
+    const [search, setSearch] = useState<boolean>(false);
+    const [searchProd, setSearchProd] = useState<boolean>(false);
+    const [searchList, setSearchList] = useState<string>('');
+    const [list, setList] = useState<boolean>(false);
+      const { lang, setNavbar } = useDataContext();
+        
+          useEffect(()=> {
+            if(lang === 'js'){
+              setNavbar(prevState => 
+                prevState.map(item => 
+                  item.navbar3 ? { navbar3: { code: codeStringJs } } : item
+                )
+              );
+            }else if(lang === 'react'){
+              setNavbar(prevState => 
+                prevState.map(item => 
+                  item.navbar3 ? { navbar3: { code: codeStringReact } } : item
+                )
+              );
+            }else{
+              setNavbar(prevState => 
+                prevState.map(item => 
+                  item.navbar3 ? { navbar3: { code: codeStringNext } } : item
+                )
+              );
+            }
+        }, [lang, setNavbar])
+    
 
-const truncateDescription = (description: string, maxLength: number) => {
-  return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
-};
+    return (
+        <>
+        <nav className={`relative top-0 z-50 bg-white dark:bg-slate-700  h-14 lg:h-16 w-full flex justify-center place-items-center text-xl duration-300 text-slate-700 dark:text-white dark:hover:text-slate-200`}>
+        <Icon.Search size={22} className={`cursor-pointer lg:hidden text-slate-700 dark:text-white dark:hover:text-slate-200 absolute right-5 ${menu ? ' animate-duration-200' : ''}`}onClick={() => {setMenu(false);setSearch(prevSearch => !prevSearch);}}/>
+                <div className={`w-full bg-white dark:bg-slate-600  ${search ? 'max-h-[40rem]':'max-h-0'} absolute top-14 overflow-hidden duration-300 lg:hidden`}>
+                    <div className="relative w-full flex justify-center mt-4">
+                    <input
+                        type="text"
+                        className="bg-slate-200 dark:bg-slate-700 py-3 dark:text-white pl-14 w-[90%] m-auto text-black pr-3 text-base rounded-md focus:outline-none outline-none border-none"
+                        placeholder="Pesquisar..."
+                        value={searchList}
+                        onChange={(e) => setSearchList(e.target.value)}
+                        onClick={() => setSearchProd(true)}
+                    />
+                        <span className="absolute left-10 top-1/2 transform -translate-y-1/2 md:ml-5">
+                            <Icon.Search size={16} className="text-gray-500" />
+                        </span>
+                    </div>
+                    <div className="h-80 bg-white dark:bg-slate-600  mt-5 w-[90%] m-auto overflow-y-scroll">
+                        
+                    </div>
+                    <div className="h-6"></div>
+                </div>
+            {menu ? (
+                <Icon.X size={30} className={`cursor-pointer lg:hidden text-slate-700 dark:text-white dark:hover:text-slate-200 absolute left-5 ${menu ? ' animate-duration-200':''}`}  onClick={()=> setMenu(false)}/>
+            ) : (
+                <Icon.List size={30} className={`cursor-pointer lg:hidden text-slate-700 dark:text-white dark:hover:text-slate-200 absolute left-5 ${!menu ? ' animate-duration-200':''}`}  onClick={()=> {setMenu(true);setSearch(false);}}/>
+            )}
+            <div className="flex justify-center items-center absolute transform top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 right-5 lg:-translate-y-1/2 lg:-translate-x-0 lg:left-0 lg:right-auto lg:w-full">
+                <Link href='/' className={`lg:absolute lg:left-3 }`}><Image src='/planit.png' className='w-10 h-10' alt='Logo' width={300} height={300}/></Link>
 
-export default function Card3() {
-  
-  const { lang, setCard } = useDataContext();
+                <div className="hidden lg:flex items-center lg:ml-[-16rem] lg:text-[1.3vw] xl:text-[0.9vw] 2xl:text-[0.8vw]">
+                    <Link href='/' className={`text-slate-900 hover:text-slate-400 dark:text-white dark:hover:text-slate-400 mx-4 xl:mx-6 2xl:mx-[1.48vw] duration-300 `}>Home</Link>
+                    <Link href='/' className={`text-slate-900 hover:text-slate-400 dark:text-white dark:hover:text-slate-400 mx-4 xl:mx-6 2xl:mx-[1.48vw] duration-300 `}>Products</Link>
+                    <Link href='/' className={`text-slate-900 hover:text-slate-400 dark:text-white dark:hover:text-slate-400 mx-4 xl:mx-6 2xl:mx-[1.48vw] duration-300 `}>Features</Link>
+                    <Link href='/' className={`text-slate-900 hover:text-slate-400 dark:text-white dark:hover:text-slate-400 mx-4 xl:mx-6 2xl:mx-[1.48vw] duration-300 `}>Heroes</Link>
+                    <div onMouseEnter={()=>setList(true)} onMouseLeave={()=>setList(false)} className={`mx-2 xl:mx-3 2xl:mx-[1.48vw] cursor-pointer text-slate-900 hover:text-slate-400 dark:text-white dark:hover:text-slate-200 duration-300 relative `}>
+                        <div className="flex place-items-center">
+                            <p className={`text-slate-700 dark:text-white dark:hover:text-slate-200`}>Items </p>
+                            <Icon.ChevronCompactDown size={15} className='ml-1 mt-0' /> 
+                        </div>
+                        <div className={`${list?'max-h-96 pt-3 p-2':'max-h-0 pt-0 p-0'} rounded-md md:w-[12vw] xl:w-[11vw] 2xl:w-45 bg-slate-100 dark:bg-slate-800  duration-300 absolute ml-[-4rem] text-center mt-0 overflow-hidden z-30`}>
+                            <div className='h-10 flex justify-center place-items-center'>
+                                <Link href='/' className={`text-slate-700 dark:text-white dark:hover:text-slate-200 hover:text-slate-500 duration-300`}>Item 1</Link><br />
+                            </div>
+                            <hr className={`border-white dark:border-slate-400`}/>
+                            <div className={`h-10 flex justify-center place-items-center text-slate-700 dark:text-white dark:hover:text-slate-200 hover:text-slate-500 duration-300`}>
+                                <a href='#' target='_blank' rel='noopener noreferrer'>Item 2</a>
+                            </div>
+                        </div>
+                    </div>
+                    <Link href='/' className={`text-slate-900 hover:text-slate-400 dark:text-white dark:hover:text-slate-200' mx-2 xl:mx-3 2xl:mx-[1.48vw] duration-300 `}>About</Link>
 
-  useEffect(()=> {
-    if(lang === 'js'){
-      setCard(prevState => 
-        prevState.map(item => 
-          item.card3 ? { card3: { code: codeStringJs } } : item
-        )
-      );
-    }else if(lang === 'react'){
-      setCard(prevState => 
-        prevState.map(item => 
-          item.card3 ? { card3: { code: codeStringReact } } : item
-        )
-      );
-    }else{
-      setCard(prevState => 
-        prevState.map(item => 
-          item.card3 ? { card3: { code: codeStringNext } } : item
-        )
-      );
-    }
-  }, [lang, setCard])
+                    <div className="absolute right-5 flex justify-center place-items-center">
+                        <div className={`relative ml-auto  right-5`}>
+                            <input
+                                type="text"
+                                className="pl-9 w-[10vw] bg-slate-200 dark:bg-slate-600 text-black dark:text-white pr-3 lg:h-7 lg:w-[10vw] xl:w-44 2xl:w-[13vw] 2xl:h-8 2xl:text-[0.8vw] text-[1vw] border-none rounded-md focus:outline-none"
+                                placeholder="Pesquisar..."
+                                value={searchList}
+                                onChange={(e) => setSearchList(e.target.value)}
+                                onClick={() => setSearchProd(true)}
+                            />
+                            <div className={`bg-slate-100 dark:bg-slate-800 absolute left-0 ${searchProd ? 'h-72' : 'h-0'} ml-[-2.5rem] 2xl:ml-[-4rem] mt-2 w-[20vw] overflow-y-scroll duration-300 ease-in-out rounded-md`} onClick={()=>setSearchProd(false)}>
+                            
+                            </div>
+                            <span className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                                <Icon.Search size={16} className="text-gray-500" />
+                            </span>
+                        </div>
 
-  const [hovered, setHovered] = useState(-1)
-  const [hovered1, setHovered1] = useState(-1)
-  const [hovered2, setHovered2] = useState(-1)
-  const [hovered3, setHovered3] = useState(-1)
-  const [hovered4, setHovered4] = useState(-1)
-  const [timeouts, setTimeouts] = useState<number[]>([])
+                        <a href="#" target='_blank'  rel='noopener noreferrer' className={`2xl:w-6 lg:w-5 mx-2 2xl:mx-3 flex justify-center place-items-center cursor-pointer `}><Icon.Youtube size={25} className={`text-slate-700 dark:text-white dark:hover:text-slate-400 hover:text-slate-400 duration-300 xl:text-md 2xl:text-lg text-lg`}/></a>
+                        <a href="#" target='_blank'  rel='noopener noreferrer' className={`2xl:w-5 lg:w-4 mx-2 2xl:mx-3 flex justify-center place-items-center cursor-pointer `}><Icon.Linkedin size={20} className={`text-slate-700 dark:text-white dark:hover:text-slate-400 hover:text-slate-400 duration-300 xl:text-sm 2xl:text-md text-md`}/></a>
+                        <a href="#" target='_blank'  rel='noopener noreferrer' className={`2xl:w-5 lg:w-4 mx-2 2xl:mx-3 flex justify-center place-items-center cursor-pointer `}><Icon.Instagram size={20} className={`text-slate-700 dark:text-white dark:hover:text-slate-400 hover:text-slate-400 duration-300 xl:text-sm 2xl:text-md text-md`}/></a>
+                        <a href="#" target='_blank'  rel='noopener noreferrer' className={`2xl:w-5 lg:w-4 mx-2 2xl:mx-3 flex justify-center place-items-center cursor-pointer `}><Icon.Facebook size={20} className={`text-slate-700 dark:text-white dark:hover:text-slate-400 hover:text-slate-400 duration-300 xl:text-sm 2xl:text-md text-md`}/></a>
+                    </div>
+                </div>
+            </div>
 
-  function hoveredCard(id:number){
-    const timeout4 = setTimeout(()=>setHovered4(id), 200) as unknown as number
-    const timeout3 = setTimeout(()=>setHovered3(id), 400) as unknown as number
-    const timeout2 = setTimeout(()=>setHovered2(id), 600) as unknown as number   
-    const timeout1 = setTimeout(()=>setHovered1(id), 800) as unknown as number
-    setTimeouts([timeout1, timeout2, timeout3, timeout4])
-  }  
+            <div className={`absolute top-14 z-50 text-slate-700 dark:text-white dark:hover:text-slate-400 w-full ${menu ? 'max-h-[35rem]' : 'max-h-0'} bg-white dark:bg-slate-600 text-base duration-500 mt-[-0.1rem] overflow-hidden lg:hidden`}>
+                <hr className='mt-3 mx-8 opacity-0'/>
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>Home</p></Link>
+                <hr className='mx-8 opacity-25' />
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>Products</p></Link>
+                <hr className='mx-8 opacity-25' />
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>Features</p></Link>
+                <hr className='mx-8 opacity-25' />
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>Heroes</p></Link>
+                <hr className='mx-8 opacity-25' />
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>Item 1</p></Link>
+                <hr className='mx-8 opacity-25' />
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>Item 2</p></Link>
+                <hr className='mx-8 opacity-25' />
+                <Link href='/' className={`hover:text-slate-700 dark:text-white dark:hover:text-slate-400`}><p className='text-center my-[0.83rem] duration-300'>About</p></Link>
+                <div className="h-4"></div>
+            </div>
 
-  function hoveredClear(){
-    timeouts.forEach(timeout => clearTimeout(timeout))
-    setHovered1(-1)
-    setHovered2(-1)
-    setHovered3(-1)
-    setHovered4(-1)
-  }  
-
-  return (
-    <div className="w-full bg-white dark:bg-slate-900 rounded-t-lg py-5 flex flex-wrap justify-center gap-4">
-      {cardData.map((card, index) => (
-        <div key={index} className='w-56 h-60 border border-slate-300 dark:border-slate-700 rounded-lg relative cursor-pointer overflow-hidden duration-300 dark:bg-slate-800 bg-white hover:bg-slate-200 dark:hover:bg-slate-700 m-0' onMouseEnter={()=>{setHovered(index);hoveredCard(index)}} onMouseLeave={()=>{setHovered(-1);hoveredClear()}}>
-          <div className={`w-full ${hovered === index?'h-full bg-right':'h-full bg-left'} duration-1000 bg-cover absolute top-0 left-0 z-10`} style={{backgroundImage: `url(${card.image})`}}>
-            <div className={`w-full h-full ${hovered === index?'bg-white/70 dark:bg-black/50':'bg-white/20 dark:bg-black/30'} duration-300`}></div>
-              <h1 className={`absolute bottom-0 bg-white dark:bg-transparent w-full text-slate-800 py-2 left-0 text-xl font-bold dark:text-white ${hovered === index?'opacity-0 left-0 duration-300':'left-0 pl-4 opacity-700 duration-300'} z-20`}>{card.title}</h1>
-              <p className={`text-center w-[80%] truncate text-2xl font-bold absolute top-6 text-slate-800 dark:text-white ${hovered4 === index?'opacity-100 right-6':'opacity-0 right-0'} duration-300`}>{card.title}</p>
-              <p className={`text-center w-[80%] text-base font-bold absolute top-16 text-slate-800 dark:text-slate-300 ${hovered3 === index?'opacity-100 right-6':'opacity-0 right-[-0.5rem]'} duration-300`}>{truncateDescription(card.description, 80)}</p>
-              <p className={`text-center w-[80%] text-sm font-bold absolute bottom-10 text-slate-800 dark:text-slate-400 ${hovered2 === index?'opacity-100 right-6':'opacity-0 right-[-0.5rem]'} duration-300`}>See More</p>
-              <p className={`text-center w-[80%] flex justify-center place-items-center text-sm font-bold absolute bottom-5 text-slate-800 dark:text-slate-400 ${hovered1 === index?'opacity-100 right-6':'opacity-0 right-[-0.5rem]'} duration-300`}><Icon.Award className='mr-1'/>01/01/2025</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
+        </nav>
+        </>
+    );
 }

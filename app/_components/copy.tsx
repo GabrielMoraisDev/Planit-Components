@@ -45,13 +45,13 @@ export default function Copy({ codeString }: propsCode) {
         <>
             <div className="w-full h-28 lg:h-16 bg-slate-300 dark:bg-slate-700 m-auto relative rounded-b-lg duration-300 overflow-hidden">
                 <div 
-                    className="w-44 h-[30%] lg:h-[60%] bg-slate-200 dark:bg-slate-600 hover:bg-white dark:hover:bg-slate-500 duration-300 rounded-full cursor-pointer absolute -translate-y-1/2 top-1/2 mt-[-1.2rem] lg:mt-0 left-5 flex justify-center place-items-center"
+                    className="w-44 h-[30%] lg:h-[60%] bg-white dark:bg-slate-600 hover:bg-slate-400 hover:text-white dark:hover:bg-slate-500 duration-300 rounded-full cursor-pointer absolute -translate-y-1/2 top-1/2 mt-[-1.2rem] lg:mt-0 left-5 flex justify-center place-items-center"
                     onClick={() => setViewCode(prev => !prev)}
                 >
                     {viewCode ? 'Hide code' : 'Show code'}
                 </div>
                 <div 
-                    className={`w-20 h-[30%] lg:h-[60%] duration-300 rounded-full cursor-pointer absolute -translate-y-1/2 top-1/2 mt-[-1.2rem] lg:mt-0 right-5 flex justify-center place-items-center ${isToastActive ? 'bg-sky-300 dark:bg-sky-600 cursor-default' : 'bg-slate-200 dark:bg-slate-600 hover:bg-white dark:hover:bg-slate-500'}`}
+                    className={`w-20 h-[30%] lg:h-[60%] duration-300 rounded-full cursor-pointer absolute -translate-y-1/2 top-1/2 mt-[-1.2rem] lg:mt-0 right-5 flex justify-center place-items-center ${isToastActive ? 'bg-sky-300 dark:bg-sky-600 cursor-default' : 'bg-white hover:bg-slate-400 hover:text-white dark:bg-slate-600 dark:hover:bg-slate-500'}`}
                     onClick={()=>!isToastActive && copied()}
                 >
                     <Icon.Clipboard />
@@ -75,7 +75,7 @@ export default function Copy({ codeString }: propsCode) {
                 </div>
             </div>
 
-            <div className={` bg-slate-200 dark:bg-slate-800 w-[100%] m-auto mt-4 ${viewCode ? 'p-4 max-h-[30rem] overflow-y-auto border dark:border-transparent rounded-md' : 'max-h-0 p-0 overflow-hidden'} border-slate-400 dark:border-transparent duration-300`}>
+            <div className={` bg-slate-200 dark:bg-slate-800 w-[100%] m-auto mt-4 ${viewCode ? 'p-4 max-h-[30rem] overflow-y-auto rounded-md' : 'max-h-0 p-0 overflow-hidden'} duration-300`}>
                 <pre className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: cleanConsole(codeString) }} />
             </div>
         </>

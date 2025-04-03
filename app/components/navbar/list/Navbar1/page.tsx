@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react';
 import { useDataContext } from "@/app/_context/data";
 import * as Icon from 'react-bootstrap-icons';
-import {codeStringNext} from "../../list/Navbar1/codeNext";
-import {codeStringJs} from "../../list/Navbar1/codeJs";
-import {codeStringReact} from "../../list/Navbar1/codeReact";
+import {codeStringNext} from "./codeNext";
+import {codeStringJs} from "./codeJs";
+import {codeStringReact} from "./codeReact";
 
 export default function Nav1() {
   const items = [
@@ -43,7 +43,7 @@ export default function Nav1() {
     }, [lang, setNavbar])
 
   return (
-    <div className={`${menuMobile ? 'max-h-[70rem] pt-5 pb-24' : 'max-h-20'} lg:py-0 lg:h-16 bg-slate-700 dark:bg-slate-900 relative duration-500 flex justify-center overflow-hidden`}>
+    <div className={`${menuMobile ? 'max-h-[70rem] pt-5 pb-24' : 'max-h-20'} lg:py-0 lg:h-16 bg-slate-600 dark:bg-slate-900 relative duration-500 flex justify-center overflow-hidden`}>
 
       <div className="lg:hidden text-sky-300 absolute left-4 top-5 w-10 h-10 flex justify-center place-items-center rounded-md" onClick={() => setMenuMobile(!menuMobile)}>
         <Icon.List className={`w-8 h-8 absolute duration-300 ${menuMobile ? 'opacity-0 rotate-[70deg]' : 'opacity-100 rotate-[0deg]'}`}/> 
@@ -72,7 +72,7 @@ export default function Nav1() {
         ))}
       </div>
 
-      <div className={`absolute bottom-7 lg:right-5 h-auto w-auto flex lg:-translate-y-1/2 lg:top-1/2 place-items-center duration-300 ${menuMobile ? 'opacity-100' : 'opacity-0 lg:opacity-100'}`}>
+      <div className={`absolute bottom-7 lg:right-5 h-auto w-auto flex lg:-translate-y-1/2 lg:top-1/2 place-items-center duration-300 ${menuMobile ? 'opacity-100' : 'opacity-0 pointer-events-none lg:pointer-events-auto lg:opacity-100'}`}>
         <button className="absolute bottom-0 left-0 lg:relative bg-sky-200 hover:bg-white text-slate-800 dark:bg-slate-700 dark:hover:bg-sky-300 dark:text-white dark:hover:text-slate-900 w-32 lg:w-20 px-4 lg:px-2 py-2 lg:py-1 rounded-md mx-2 lg:mx-1 text-base lg:text-sm duration-300">Sign-in</button>
         <button className="absolute bottom-0 right-0 lg:relative bg-sky-300 hover:bg-white text-slate-800 dark:bg-sky-400 dark:hover:bg-sky-200 dark:text-slate-900 w-32 lg:w-20 px-4 lg:px-2 py-2 lg:py-1 rounded-md mx-2 lg:mx-1 text-base lg:text-sm duration-300">Sign-up</button>
       </div>

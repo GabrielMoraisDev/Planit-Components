@@ -21,13 +21,13 @@
 }
 
 .light {
-  --background: #e4eaf1;
+  --background: #e8eff7;
   --foreground: #353942;
 }
 
 .dark {
   --background: #080f1d;
-  --foreground: #ffffff;
+  --foreground: #e8eff7;
 }
 
 body {

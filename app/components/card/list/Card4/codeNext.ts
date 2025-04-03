@@ -3,7 +3,7 @@ export const codeStringNext = ` 'use client'
 import { useState, useEffect, useCallback } from 'react';
 import * as Icon from 'react-bootstrap-icons';
 
-export default function Carousel1() {
+export default function FlipPolaroidCard() {
   const [currentImage, setCurrentImage] = useState&lt;number&gt;(0);
   const [isHovered, setIsHovered] = useState&lt;boolean&gt;(false);
 

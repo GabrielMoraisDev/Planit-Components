@@ -9,7 +9,7 @@ interface Image {
   img: string;
 }
 
-export default function Carousel2() {
+export default function SliderCarousel() {
   const [currentImage, setCurrentImage] = useState&lt;number&gt;(0);
   const [isHovered, setIsHovered] = useState&lt;boolean&gt;(false);
 

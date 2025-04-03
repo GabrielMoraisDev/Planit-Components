@@ -19,7 +19,7 @@ const cardData = [
   }
 ];
 
-export default function Card1() {
+export default function SimpleCard() {
 
   return (
     &lt;div className="w-full bg-white dark:bg-slate-900 rounded-t-lg py-5 flex flex-wrap justify-center gap-4"&gt;
