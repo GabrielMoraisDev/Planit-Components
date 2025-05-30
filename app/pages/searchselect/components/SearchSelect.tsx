@@ -17,6 +17,7 @@ interface DropSelectProps {
   align?: string[];
   iconChevron?: string;
   iconSearch?: string;
+  classIcons?: string[];
   icons?: string[];
   bgSearch?: string;
 }
@@ -30,11 +31,12 @@ export default function SearchSelect({
   searchPlaceholder = "Search...",
   notFoundPlaceholder = "Not found",
   colors = ['', '', ''],
-  icons = ['', '', ''],
+  icons = ['', 'ChevronDown', 'Search'],
   borders = ['', '', ''],
   spaces = ['', '', ''],
   sizes = ['', '', ''],
   bgSearch = '',
+  classIcons = ['w-10 pr-0 pl-1', 'w-9', 'w-10 pl-2 pr-0'],
 }: DropSelectProps) {
   const [selectActive, setSelectActive] = useState<boolean>(false);
   const [selectSearch, setSelectSearch] = useState<string>("");
@@ -121,32 +123,33 @@ export default function SearchSelect({
 
       <div className="flex justify-start place-items-center h-10">
 
-        <div className={`${!icons[0] ? 'w-0' : 'w-10'}`}></div>
+        <div className={`${!icons[0] ? 'w-0' : classIcons[0]}`}></div>
         
         <div
           className={`absolute left-0 w-full h-full z-10 border-slate-300 border 
           ${!colors[0] ? 'dark:bg-slate-700 dark:text-slate-100 bg-white text-slate-800' : colors[0]}
-          ${selectActive ? borders[0].includes('rounded') ? borders[0] : "rounded-t-md" : "rounded-md duration-300"} overflow-hidden`}
+          ${borders[0].includes('rounded') ? borders[0] : selectActive ? "rounded-t-md" : "rounded-md duration-300"} overflow-hidden`}
           onClick={() => setSelectActive((prev) => !prev)}
         >
-          <div className={`${!icons[1] ? 'w-0' : 'w-10'} h-full ml-auto flex justify-center place-items-center duration-300 pointer-events-none`}>
+          <div className={`${icons[1] === 'none' && 'w-0'} h-full ml-auto flex justify-center place-items-center duration-300 pointer-events-none ${classIcons[1]}`}>
             <div className={`${selectActive ? "rotate-180" : "rotate-0"} duration-300`}>
-              {Icon[icons[1] as keyof typeof Icon] && React.createElement(Icon[icons[1] as keyof typeof Icon])}
+              {icons[1] === '' ? <Icon.ChevronDown/> : Icon[icons[1] as keyof typeof Icon] && React.createElement(Icon[icons[1] as keyof typeof Icon])}
             </div>
           </div>
-          <div className={`${icons[0] === '' ? 'w-0' : 'w-10'} h-full flex justify-center place-items-center absolute left-0 top-0 z-10`}>
-            {Icon[icons[0] as keyof typeof Icon] && React.createElement(Icon[icons[0] as keyof typeof Icon])}
+
+          <div className={`${icons[0] === 'none' && 'w-0'} h-full flex justify-center place-items-center absolute left-0 top-0 z-10 ${classIcons[0]}`}>
+            {icons[0] !== 'none' && Icon[icons[0] as keyof typeof Icon] && React.createElement(Icon[icons[0] as keyof typeof Icon])}
           </div>
         </div>
 
         <input type="hidden" name={name} value={internalValue} required />
-        <p className={`${!icons[0] ? 'p-4 pr-9' : 'p-0'} ${internalValue !== "" ? "text-slate-800 dark:text-white" : "text-slate-400"} truncate ${!sizes[0] ? 'w-44' : sizes[0]} select-none z-10`}>
+        <p className={`${internalValue !== "" ? "text-slate-800 dark:text-white" : "text-slate-400"} truncate mt-1 ${spaces[0]} ${icons[0] === 'none' && 'ml-[-1.4rem]'} ${!sizes[0] ? 'w-48' : sizes[0]} select-none pointer-events-none mr-0.5 z-10 ${colors[0] && colors[0]}`}>
           {internalValue === ""
             ? placeholder
             : options?.find((opt) => opt.value === internalValue)?.label || placeholder}
         </p>
 
-        <div className={`${!icons[0] ? 'w-0' : 'w-10'} ml-auto`}></div>
+        <div className={`${icons[1] === 'none' ? 'w-5' : classIcons[1] } ml-auto`}></div>
 
           <div
             className={`absolute w-full top-10 z-10 bg-slate-200 dark:bg-slate-700 mt-[-1px] custom-scrollbar ${
@@ -157,14 +160,14 @@ export default function SearchSelect({
             style={{ overflowY: filteredOptions.length > 4 ? 'auto' : 'hidden' }}
           >
             <div className={`${!bgSearch ? 'bg-slate-300 dark:bg-slate-600' : bgSearch} sticky top-0 h-auto w-full flex justify-center place-items-center`}>
-          <div className={`${!sizes[1] ? 'w-full h-11' : sizes[1]} flex place-items-center sticky top-0 bg-slate-100 dark:bg-slate-600 px-4 ${spaces[1]} ${borders[1]}`}>
-            <div className="dark:text-slate-300 mr-3 absolute left-3.5 text-sm">
-              {Icon[icons[2] as keyof typeof Icon] && React.createElement(Icon[icons[2] as keyof typeof Icon])}
+          <div className={`${!sizes[1] ? 'w-full h-11' : sizes[1]} flex place-items-center sticky top-0 bg-slate-100 dark:bg-slate-600 pr-4 ${spaces[1]} ${borders[1]}`}>
+            <div className={`dark:text-slate-300 flex h-full text-sm ${icons[2] === 'none' ? 'w-4' : classIcons[2]} justify-center place-items-center`}>
+              {icons[2] === '' ? <Icon.Search/> : Icon[icons[2] as keyof typeof Icon] && React.createElement(Icon[icons[2] as keyof typeof Icon])}
             </div>
             <input
               ref={searchInputRef}
               type="text"
-              className={`${!icons[2] ? 'pl-0' : 'pl-6'} bg-transparent outline-none w-full focus:ring-0 ring-0 border-none focus:outline-none dark:text-slate-300`}
+              className={`${icons[2] === 'none' ? 'pl-0' : 'pl-2'} bg-transparent outline-none w-full focus:ring-0 ring-0 border-none focus:outline-none dark:text-slate-300`}
               placeholder={searchPlaceholder}
               onChange={(e) => setSelectSearch(e.target.value)}
             />
