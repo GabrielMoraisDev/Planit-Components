@@ -1,44 +1,39 @@
 {
   "name": "planit-components",
-  "version": "1.0.5",
-  "description": "Componentes React reutilizáveis para aplicações modernas",
+  "version": "1.1.9",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.es.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "build:watch": "rollup -c -w",
-    "dev": "rollup -c -w",
-    "prepublishOnly": "npm run build"
+    "build": "rollup -c"
   },
-  "keywords": [
-    "react",
-    "components",
-    "typescript",
-    "ui"
-  ],
-  "author": "Seu Nome",
-  "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": "^19.1.0",
+    "react-bootstrap-icons": "^1.11.6",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "@rollup/plugin-typescript": "^11.0.0",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "rollup": "^3.0.0",
-    "rollup-plugin-dts": "^5.0.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "autoprefixer": "^10.4.21",
+    "clsx": "^2.1.1",
+    "rollup": "^2.79.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "typescript": "^5.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/seu-usuario/planit-components.git"
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.8.3"
   }
 }

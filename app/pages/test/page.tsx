@@ -17,7 +17,6 @@ export default function ExampleUsage() {
         ]}
         name="fruits"
         value={selected}
-        icons={['Github', 'ChevronDown', 'Search']}
         onChange={(val: string | null) => setSelected(val || '')}
       />
   )

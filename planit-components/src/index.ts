@@ -1,2 +1,3 @@
-export { SearchSelect } from './components/SearchSelect';
-export type { SearchSelectProps, SearchSelectOption } from './components/SearchSelect';
+export * from './components/SearchSelect';
+export * from './components/ThemeSwitch';
+import './styles/tailwind.css';
