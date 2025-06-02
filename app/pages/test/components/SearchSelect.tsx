@@ -164,8 +164,8 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
         
         <div
           className={clsx(
-            "absolute left-0 w-full h-full z-10 border-slate-300 tdark:border-slate-500 border duration-300",
-            !colors[0] ? 'tdark:bg-slate-700 tdark:text-slate-100 bg-white text-slate-800' : colors[0],
+            "absolute left-0 w-full h-full z-10 border-slate-300 dark:border-slate-500 border duration-300",
+            !colors[0] ? 'dark:bg-slate-700 dark:text-slate-100 bg-white text-slate-800' : colors[0],
             borders[0].includes('rounded') ? borders[0] : selectActive ? "rounded-t-md" : "rounded-md duration-300",
             "overflow-hidden"
           )}
@@ -193,7 +193,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 
         <input type="hidden" name={name} value={internalValue} required />
           <p className={clsx(
-            internalValue !== "" ? "text-slate-800 tdark:text-white" : "text-slate-400 tdark:text-slate-500",
+            internalValue !== "" ? "text-slate-800 dark:text-white" : "text-slate-400 dark:text-slate-500",
             "truncate mt-1",
             spaces[0],
             icons[0] === 'none' && 'ml-[-1.4rem]',
@@ -216,21 +216,21 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 
         <div
           className={clsx(
-            "absolute w-full top-10 z-10 bg-slate-200 tdark:bg-slate-700 mt-[-1px] custom-scrollbar",
+            "absolute w-full top-10 z-10 bg-slate-200 dark:bg-slate-700 mt-[-1px] custom-scrollbar",
             selectActive
-              ? "max-h-60 rounded-b-md overflow-y-auto border-slate-300 tdark:border-slate-500 border-b border-x border-t"
+              ? "max-h-60 rounded-b-md overflow-y-auto border-slate-300 dark:border-slate-500 border-b border-x border-t"
               : "max-h-0",
             "duration-300"
           )}
           style={{ overflowY: filteredOptions.length > 4 ? 'auto' : 'hidden' }}
         >
           <div className={clsx(
-            !bgSearch ? 'bg-slate-300 tdark:bg-slate-600' : bgSearch,
+            !bgSearch ? 'bg-slate-300 dark:bg-slate-600' : bgSearch,
             "sticky top-0 h-auto w-full flex justify-center place-items-center"
           )}>
             <div className={clsx(
               !sizes[1] ? 'w-full h-11' : sizes[1],
-              colors[1] !== '' ? colors[1] : 'bg-slate-100 tdark:bg-slate-600',
+              colors[1] !== '' ? colors[1] : 'bg-slate-100 dark:bg-slate-600',
               "flex place-items-center sticky top-0 pr-4",
               spaces[1],
               borders[1]
@@ -238,7 +238,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
               <div className={clsx(
                 "flex h-full text-sm",
                 icons[2] === 'none' ? 'w-4' : classIcons[2] === '' ? 'w-10 pl-2 pr-0' : classIcons[2],
-                "justify-center place-items-center text-slate-600 tdark:text-slate-300"
+                "justify-center place-items-center text-slate-600 dark:text-slate-300"
               )}>
                 {renderIcon(icons[2] || 'Search')}
               </div>
@@ -247,8 +247,8 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                 type="text"
                 className={clsx(
                   icons[2] === 'none' ? 'pl-0' : 'pl-2',
-                  colors[1] !== '' ? colors[1] : 'tdark:text-slate-300 text-slate-700',
-                  colorPlaceholder === '' ? ' placeholder-slate-400 tdark:placeholder-slate-400' : colorPlaceholder,
+                  colors[1] !== '' ? colors[1] : 'dark:text-slate-300 text-slate-700',
+                  colorPlaceholder === '' ? ' placeholder-slate-400 dark:placeholder-slate-400' : colorPlaceholder,
                   "bg-transparent outline-none w-full focus:ring-0 ring-0 border-none focus:outline-none"
                 )}
                 placeholder={searchPlaceholder}
@@ -265,7 +265,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                   className={clsx(
                     !sizes[3] ? 'w-full min-h-11' : sizes[3],
                     !spaces[3] ? 'px-4' : spaces[3],
-                    !colors[3] ? 'hover:bg-slate-300 tdark:hover:bg-slate-500 text-slate-700 tdark:text-slate-300' : colors[3],
+                    !colors[3] ? 'hover:bg-slate-300 dark:hover:bg-slate-500 text-slate-700 dark:text-slate-300' : colors[3],
                     "flex place-items-center cursor-pointer"
                   )}
                   onClick={() => handleSelect(opt.value)}
@@ -275,7 +275,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
               </div>
             ))
           ) : (
-            <div className={clsx("w-full min-h-11 flex place-items-center justify-center text-slate-400 tdark:text-slate-500")}>
+            <div className={clsx("w-full min-h-11 flex place-items-center justify-center text-slate-400 dark:text-slate-500")}>
               {notFoundPlaceholder}
             </div>
           )}
