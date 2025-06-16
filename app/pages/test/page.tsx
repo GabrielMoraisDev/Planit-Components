@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 import { SearchSelect } from './components/SearchSelect';
-import { ThemeSwitch } from "./components/ThemeSwitch";
+// import { ThemeSwitch } from "./components/ThemeSwitch";
  
  
 export default function ExampleUsage() {
@@ -11,7 +11,7 @@ export default function ExampleUsage() {
  
   return (
     <>
-    <ThemeSwitch/>
+    {/* <ThemeSwitch/> */}
       <SearchSelect
         options={[
           { label: 'Appleask djlak djlkdjs lasjdal ksdjalksdj alksdj lksjdlkasjd lasdlkas l', value: 'apple' },
