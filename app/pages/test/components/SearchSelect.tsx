@@ -21,10 +21,95 @@ interface SearchSelectProps {
   icons?: string[];
   bgSearch?: string;
   colorPlaceholder?: string;
+  paletteColor?: string; // Nova prop para paleta automática
 }
 
 export type SearchSelectOption = { label: string; value: string };
 export type { SearchSelectProps };
+
+// Função para converter hex para RGB
+const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+};
+
+// Função para converter RGB para HSL
+const rgbToHsl = (r: number, g: number, b: number): { h: number; s: number; l: number } => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0, s = 0
+  const l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  
+  return { h: h * 360, s: s * 100, l: l * 100 };
+};
+
+// Função para gerar paleta de cores
+const generateColorPalette = (baseColor: string) => {
+  const rgb = hexToRgb(baseColor);
+  if (!rgb) return null;
+  
+  const { h, s, l } = rgbToHsl(rgb.r, rgb.g, rgb.b);
+  
+  if(l > 50){
+    return {
+    // Cor principal (input background)
+    primary: `hsl(${h}, ${Math.max(s - 10, 0)}%, ${Math.min(l + 10, 95)}%)`,
+    // Cor mais escura (hover)
+    primaryDark: `hsl(${h}, ${Math.max(s - 5, 0)}%, ${Math.max(l - 15, 87)}%)`,
+    // Cor do dropdown
+    secondary: `hsl(${h}, ${Math.max(s - 20, 0)}%, ${Math.min(l + 15, 90)}%)`,
+    // Cor do search background
+    searchBg: `hsl(${h}, ${Math.max(s - 25, 0)}%, ${Math.min(l + 15, 93)}%)`,
+    // Cor do hover nos items
+    itemHover: `hsl(${h}, ${Math.max(s - 15, 0)}%, ${Math.max(l - 10, 85)}%)`,
+    // Cor do texto (baseada na luminosidade)
+    text: '#1f2937',
+    textSecondary: '#64748b',
+    // Cor da borda
+    border: `hsl(${h}, ${Math.max(s - 30, 0)}%, ${l > 50 ? Math.max(l - 20, 20) : Math.min(l + 20, 80)}%)`
+  };
+  }else{
+    return {
+      // Cor principal (input background)
+      primary: `hsl(${h}, ${Math.max(s - 10, 0)}%, ${Math.min(l + 10, 90)}%)`,
+      // Cor mais escura (hover)
+      primaryDark: `hsl(${h}, ${Math.max(s - 5, 0)}%, ${Math.max(l - 15, 20)}%)`,
+      // Cor do dropdown
+      secondary: `hsl(${h}, ${Math.max(s - 15, 0)}%, ${Math.min(l + 5, 70)}%)`,
+      // Cor do search background
+      searchBg: `hsl(${h}, ${Math.max(s - 10, 0)}%, ${Math.min(l + 15, 23)}%)`,
+      // Cor do hover nos items
+      itemHover: `hsl(${h}, ${Math.max(s - 10, 0)}%, ${Math.max(l - 10, 20)}%)`,
+      // Cor do texto (baseada na luminosidade)
+      text: '#f8fafc',
+      textSecondary: '#cbd5e1',
+      // Cor da borda
+      border: `hsl(${h}, ${Math.max(s - 30, 0)}%, ${l > 50 ? Math.max(l - 20, 20) : Math.min(l + 20, 80)}%)`
+    };
+  }
+};
 
 export const SearchSelect: React.FC<SearchSelectProps> = ({
   options,
@@ -42,16 +127,18 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
   colorPlaceholder = '',
   bgSearch = '',
   classIcons = ['', '', '', ''],
+  paletteColor, // Nova prop
 }) => {
   const [selectActive, setSelectActive] = useState<boolean>(false);
   const [selectSearch, setSelectSearch] = useState<string>("");
   const [internalValue, setInternalValue] = useState<string>(value || "");
-  
-  // Estado para forçar re-renderização quando o tema muda
   const [themeKey, setThemeKey] = useState(0);
   
   const ref = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Gerar paleta de cores se paletteColor for fornecida
+  const palette = paletteColor ? generateColorPalette(paletteColor) : null;
 
   useEffect(() => {
     if (selectActive) {
@@ -80,12 +167,10 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
     };
   }, []);
 
-  // Observer para detectar mudanças de tema
   useEffect(() => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          // Forçar re-renderização mudando o themeKey
           setThemeKey(prev => prev + 1);
         }
       });
@@ -99,14 +184,6 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (selectActive) {
-      setTimeout(() => {
-        searchInputRef.current?.focus();
-      }, 0);
-    }
-  }, [selectActive]);
-
   const filteredOptions = (options || []).filter((opt) =>
     opt.label.toLowerCase().includes(selectSearch.toLowerCase())
   );
@@ -117,7 +194,6 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
     setSelectActive(false);
   };
 
-  // Função auxiliar para renderizar ícones
   const renderIcon = (iconName: string) => {
     if (!iconName || iconName === 'none') return null;
     
@@ -125,9 +201,43 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
     return IconComponent ? <IconComponent /> : null;
   };
 
+  // Função para obter estilos baseados na paleta
+  const getStyles = () => {
+    if (!palette) return {};
+    
+    return {
+      main: {
+        backgroundColor: palette.primary,
+        borderColor: palette.border,
+        color: palette.text
+      },
+      mainHover: {
+        backgroundColor: palette.primaryDark
+      },
+      dropdown: {
+        backgroundColor: palette.secondary,
+        borderColor: palette.border
+      },
+      searchBg: {
+        backgroundColor: palette.searchBg
+      },
+      itemHover: {
+        backgroundColor: palette.itemHover
+      },
+      text: {
+        color: palette.text
+      },
+      textSecondary: {
+        color: palette.textSecondary
+      }
+    };
+  };
+
+  const styles = getStyles();
+
   return (
     <div
-      key={themeKey} // Força re-renderização quando o tema muda
+      key={themeKey}
       ref={ref}
       className={clsx(
         "relative",
@@ -137,7 +247,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
         "place-items-center",
         "justify-start"
       )}
-      onClick={() => (!selectActive ? setSelectActive(true) : "")}
+      onClick={() => (!selectActive && setSelectActive(true))}
     >
       <style>{`
         .no-custom-scrollbar::-webkit-scrollbar {
@@ -150,12 +260,20 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
           background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background-color: #94a3b8;
+          background-color: ${palette?.border || '#94a3b8'};
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background-color: #64748b;
+          background-color: ${palette?.primaryDark || '#64748b'};
         }
+        ${palette ? `
+          .palette-main-hover:hover {
+            background-color: ${palette.primaryDark} !important;
+          }
+          .palette-item-hover:hover {
+            background-color: ${palette.itemHover} !important;
+          }
+        ` : ''}
       `}</style>
 
       <div className={clsx("flex justify-start place-items-center h-10")}>
@@ -164,11 +282,13 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
         
         <div
           className={clsx(
-            "absolute left-0 w-full h-full z-10 border-slate-300 dark:border-slate-500 border duration-300",
-            !colors[0] ? 'dark:bg-slate-700 dark:text-slate-100 bg-white text-slate-800' : colors[0],
+            "absolute left-0 w-full h-full z-10 border duration-300 palette-main-hover",
+            !palette && !colors[0] ? 'tdark:bg-zinc-700 tdark:text-zinc-100 bg-white text-zinc-800 border-zinc-300 tdark:border-zinc-500' : '',
+            palette ? '' : colors[0],
             borders[0].includes('rounded') ? borders[0] : selectActive ? "rounded-t-md" : "rounded-md duration-300",
             "overflow-hidden"
           )}
+          style={palette ? styles.main : {}}
           onClick={() => setSelectActive((prev) => !prev)}
         >
           <div className={clsx(
@@ -178,7 +298,7 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
             <div className={clsx(
               selectActive ? "rotate-180" : "rotate-0",
               "duration-300"
-            )}>
+            )} style={palette ? styles.text : {}}>
               {renderIcon(icons[1] || 'ChevronDown')}
             </div>
           </div>
@@ -186,28 +306,28 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
           <div className={clsx(
             icons[0] === 'none' ? 'w-10' : classIcons[0] === '' ? 'w-10 pr-0 pl-0' : classIcons[0],
             "h-full flex justify-center place-items-center absolute left-0 top-0 z-10",
-          )}>
+          )} style={palette ? styles.text : {}}>
             {icons[0] !== 'none' && renderIcon(icons[0])}
           </div>
         </div>
 
         <input type="hidden" name={name} value={internalValue} required />
-          <p className={clsx(
-            internalValue !== "" ? "text-slate-800 dark:text-white" : "text-slate-400 dark:text-slate-500",
-            "truncate mt-1",
-            spaces[0],
-            icons[0] === 'none' && 'ml-[-1.4rem]',
-            !sizes[0] ? 'w-48' : sizes[0],
-            "select-none pointer-events-none mr-0.5 z-10",
-            colors[0] && colors[0]
-              .split(" ")
-              .filter(c => !c.startsWith("bg-") && !c.startsWith("hover:bg-"))
-              .join(" ")
-          )}>
-            {internalValue === ""
-              ? placeholder
-              : options?.find((opt) => opt.value === internalValue)?.label || placeholder}
-          </p>
+        <p className={clsx(
+          !palette && (internalValue !== "" ? "text-zinc-800 tdark:text-white" : "text-zinc-400 tdark:text-zinc-500"),
+          "truncate mt-1",
+          spaces[0],
+          icons[0] === 'none' && 'ml-[-1.4rem]',
+          !sizes[0] ? 'w-48' : sizes[0],
+          "select-none pointer-events-none mr-0.5 z-10",
+          colors[0] && colors[0]
+            .split(" ")
+            .filter(c => !c.startsWith("bg-") && !c.startsWith("hover:bg-"))
+            .join(" ")
+        )} style={palette ? (internalValue !== "" ? styles.text : styles.textSecondary) : {}}>
+          {internalValue === ""
+            ? placeholder
+            : options?.find((opt) => opt.value === internalValue)?.label || placeholder}
+        </p>
 
         <div className={clsx(
           icons[1] === 'none' ? 'w-5' : classIcons[1] === '' ? 'w-9' : classIcons[1],
@@ -216,30 +336,37 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
 
         <div
           className={clsx(
-            "absolute w-full top-10 z-10 bg-slate-200 dark:bg-slate-700 mt-[-1px] custom-scrollbar",
+            "absolute w-full top-10 z-10 mt-[-1px] custom-scrollbar",
+            !palette ? 'bg-zinc-200 tdark:bg-zinc-700 border-zinc-300 tdark:border-zinc-500' : '',
             selectActive
-              ? "max-h-60 rounded-b-md overflow-y-auto border-slate-300 dark:border-slate-500 border-b border-x border-t"
-              : "max-h-0",
+              ? "max-h-60 rounded-b-md overflow-y-auto border-b border-x border-t"
+              : "max-h-0 overflow-hidden",
             "duration-300"
           )}
-          style={{ overflowY: filteredOptions.length > 4 ? 'auto' : 'hidden' }}
+          style={palette ? { ...styles.dropdown, borderColor: palette.border } : {}}
         >
-          <div className={clsx(
-            !bgSearch ? 'bg-slate-300 dark:bg-slate-600' : bgSearch,
-            "sticky top-0 h-auto w-full flex justify-center place-items-center"
-          )}>
+          <div 
+            className={clsx(
+              !palette && !bgSearch ? 'bg-zinc-300 tdark:bg-zinc-600' : '',
+              !palette && bgSearch ? bgSearch : '',
+              "sticky top-0 h-auto w-full flex justify-center place-items-center"
+            )}
+            style={palette ? styles.searchBg : {}}
+          >
             <div className={clsx(
               !sizes[1] ? 'w-full h-11' : sizes[1],
-              colors[1] !== '' ? colors[1] : 'bg-slate-100 dark:bg-slate-600',
+              !palette && colors[1] !== '' ? colors[1] : '',
+              !palette && colors[1] === '' ? 'bg-zinc-100 tdark:bg-zinc-600' : '',
               "flex place-items-center sticky top-0 pr-4",
               spaces[1],
               borders[1]
-            )}>
+            )} style={palette ? styles.searchBg : {}}>
               <div className={clsx(
                 "flex h-full text-sm",
                 icons[2] === 'none' ? 'w-4' : classIcons[2] === '' ? 'w-10 pl-2 pr-0' : classIcons[2],
-                "justify-center place-items-center text-slate-600 dark:text-slate-300"
-              )}>
+                "justify-center place-items-center",
+                !palette ? 'text-zinc-600 tdark:text-zinc-300' : ''
+              )} style={palette ? styles.textSecondary : {}}>
                 {renderIcon(icons[2] || 'Search')}
               </div>
               <input
@@ -247,10 +374,12 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                 type="text"
                 className={clsx(
                   icons[2] === 'none' ? 'pl-0' : 'pl-2',
-                  colors[1] !== '' ? colors[1] : 'dark:text-slate-300 text-slate-700',
-                  colorPlaceholder === '' ? ' placeholder-slate-400 dark:placeholder-slate-400' : colorPlaceholder,
+                  !palette && colors[1] !== '' ? colors[1] : '',
+                  !palette && colors[1] === '' ? 'tdark:text-zinc-300 text-zinc-700' : '',
+                  !palette && colorPlaceholder === '' ? ' placeholder-zinc-400 tdark:placeholder-zinc-400' : colorPlaceholder,
                   "bg-transparent outline-none w-full focus:ring-0 ring-0 border-none focus:outline-none"
                 )}
+                style={palette ? { ...styles.text, backgroundColor: 'transparent' } : {}}
                 placeholder={searchPlaceholder}
                 onChange={(e) => setSelectSearch(e.target.value)}
               />
@@ -263,11 +392,15 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
                 <hr className={clsx("border-transparent")} />
                 <div
                   className={clsx(
+                    !borders[3] ? 'border-transparent' : borders[3],
                     !sizes[3] ? 'w-full min-h-11' : sizes[3],
                     !spaces[3] ? 'px-4' : spaces[3],
-                    !colors[3] ? 'hover:bg-slate-300 dark:hover:bg-slate-500 text-slate-700 dark:text-slate-300' : colors[3],
+                    !palette && !colors[3] ? 'hover:bg-zinc-300 tdark:hover:bg-zinc-500 text-zinc-700 tdark:text-zinc-300' : '',
+                    !palette && colors[3] ? colors[3] : '',
+                    palette ? 'palette-item-hover' : '',
                     "flex place-items-center cursor-pointer"
                   )}
+                  style={palette ? styles.text : {}}
                   onClick={() => handleSelect(opt.value)}
                 >
                   {opt.label}
@@ -275,7 +408,13 @@ export const SearchSelect: React.FC<SearchSelectProps> = ({
               </div>
             ))
           ) : (
-            <div className={clsx("w-full min-h-11 flex place-items-center justify-center text-slate-400 dark:text-slate-500")}>
+            <div 
+              className={clsx(
+                "w-full min-h-11 flex place-items-center justify-center",
+                !palette ? 'text-zinc-400 tdark:text-zinc-500' : ''
+              )}
+              style={palette ? styles.textSecondary : {}}
+            >
               {notFoundPlaceholder}
             </div>
           )}
